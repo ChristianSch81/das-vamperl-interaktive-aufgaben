@@ -1,0 +1,10 @@
+# Urheberrechtlich geschützte bzw. nur lokal benötigte Quellen
+*.pdf
+
+# Betriebssystem- und Editor-Dateien
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+

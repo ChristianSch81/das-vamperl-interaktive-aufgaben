@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Das Vamperl – Digitales Lernpaket (3. Klasse Deutsch)</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif; background:#1a0a2e; color:#f0e6ff; min-height:100vh; }
+  .header { background:linear-gradient(135deg,#2d1b4e,#4a1a6e,#6b2fa0); padding:1.5rem 1rem; text-align:center; border-bottom:4px solid #c084fc; position:relative; }
+  .header h1 { font-size:1.9rem; text-shadow:2px 2px 4px #000; } .header h1 span { color:#fbbf24; }
+  .header p { font-size:0.95rem; opacity:.9; margin-top:0.2rem; }
+  .header .cover-img { max-height:180px; border-radius:1rem; margin-top:0.6rem; box-shadow:0 4px 20px #00000088; }
+  .nav-tabs { display:flex; flex-wrap:wrap; gap:0.2rem; justify-content:center; background:#2d1b4e; padding:0.4rem 0.5rem; border-bottom:2px solid #6b2fa0; position:sticky; top:0; z-index:100; }
+  .nav-tabs button { background:#4a1a6e; color:#e9d5ff; border:2px solid transparent; padding:0.35rem 0.65rem; border-radius:999px; cursor:pointer; font-size:0.7rem; font-weight:600; transition:all 0.2s; }
+  .nav-tabs button:hover { background:#6b2fa0; transform:scale(1.04); }
+  .nav-tabs button.active { background:#c084fc; color:#1a0a2e; border-color:#fbbf24; box-shadow:0 0 10px #c084fc88; }
+  .main { max-width:920px; margin:0 auto; padding:0.7rem; }
+  .chapter { display:none; } .chapter.active { display:block; }
+  .card { background:linear-gradient(135deg,#2d1b4e,#3a1f5e); border-radius:1rem; padding:1.1rem; margin-bottom:0.9rem; border:1px solid #6b2fa0; box-shadow:0 4px 16px #00000044; }
+  .card h2 { color:#fbbf24; font-size:1.25rem; margin-bottom:0.3rem; }
+  .card h3 { color:#c084fc; font-size:1.05rem; margin:0.7rem 0 0.3rem; }
+  .card p,.card li { line-height:1.6; margin-bottom:0.2rem; font-size:0.9rem; }
+  .card ul,.card ol { padding-left:1.3rem; }
+  .badge { display:inline-block; background:#6b2fa0; color:#f0e6ff; padding:0.1rem 0.5rem; border-radius:999px; font-size:0.72rem; font-weight:600; }
+  .badge-kap { background:#7c3aed; } .badge-ue { background:#f59e0b; color:#1a0a2e; }
+  .uebung { background:#1e0e32; border-radius:0.8rem; padding:0.9rem; border-left:4px solid #fbbf24; margin:0.6rem 0; }
+  .uebung h4 { color:#fbbf24; margin-bottom:0.3rem; font-size:0.9rem; }
+  .btn { background:#c084fc; color:#1a0a2e; border:none; padding:0.4rem 1rem; border-radius:999px; font-weight:700; cursor:pointer; transition:all 0.2s; font-size:0.82rem; }
+  .btn:hover { background:#d8b4fe; transform:scale(1.03); }
+  .btn-secondary { background:#4a1a6e; color:#e9d5ff; border:2px solid #6b2fa0; }
+  .btn-secondary:hover { background:#6b2fa0; }
+  .btn-sm { padding:0.2rem 0.6rem; font-size:0.75rem; }
+  .input-field { background:#2d1b4e; border:2px solid #6b2fa0; border-radius:0.5rem; padding:0.35rem 0.6rem; color:#f0e6ff; font-size:0.88rem; width:100%; max-width:270px; margin:0.15rem 0; }
+  .input-field:focus { outline:none; border-color:#c084fc; }
+  .input-sm { max-width:140px; }
+  .input-lg { max-width:90%; }
+  .feedback { margin-top:0.35rem; padding:0.3rem 0.7rem; border-radius:0.5rem; font-weight:600; display:none; font-size:0.82rem; }
+  .feedback.richtig { display:block; background:#065f4666; border:1px solid #34d399; color:#6ee7b7; }
+  .feedback.falsch { display:block; background:#7f1d1d66; border:1px solid #f87171; color:#fca5a5; }
+  .mc-option { display:block; padding:0.4rem 0.7rem; margin:0.2rem 0; background:#2d1b4e; border:2px solid #4a1a6e; border-radius:0.5rem; cursor:pointer; transition:all 0.2s; font-size:0.85rem; }
+  .mc-option:hover { border-color:#c084fc; background:#3a1f5e; }
+  .mc-option.selected { border-color:#fbbf24; background:#4a2a6e; }
+  .mc-option.correct { border-color:#34d399; background:#065f4666; }
+  .mc-option.incorrect { border-color:#f87171; background:#7f1d1d66; }
+  .drag-container { display:flex; flex-wrap:wrap; gap:0.4rem; margin:0.4rem 0; }
+  .drag-item { background:#6b2fa0; color:#f0e6ff; padding:0.3rem 0.7rem; border-radius:0.5rem; cursor:grab; user-select:none; font-weight:600; transition:all 0.2s; border:2px solid transparent; font-size:0.82rem; }
+  .drag-item:hover { transform:scale(1.05); }
+  .drag-item.placed { border-color:#34d399; background:#065f4666; cursor:default; opacity:0.7; }
+  .drop-zone { border:2px dashed #6b2fa0; border-radius:0.5rem; min-height:2.2rem; padding:0.35rem; margin:0.2rem 0; display:flex; flex-wrap:wrap; gap:0.25rem; align-items:center; }
+  .drop-zone.drag-over { border-color:#fbbf24; background:#4a2a6e44; }
+  .tag { background:#4a1a6e; padding:0.15rem 0.5rem; border-radius:0.35rem; font-size:0.8rem; }
+  .progress-bar { width:100%; height:0.55rem; background:#2d1b4e; border-radius:999px; margin:0.4rem 0; overflow:hidden; }
+  .progress-fill { height:100%; background:linear-gradient(90deg,#c084fc,#fbbf24); border-radius:999px; transition:width 0.5s ease; width:0%; }
+  .figure-grid { display:flex; flex-wrap:wrap; gap:0.5rem; margin-top:0.5rem; }
+  .figure-card { flex:1; min-width:120px; background:#2d1b4e; border-radius:0.7rem; padding:0.5rem; text-align:center; border:1px solid #6b2fa0; }
+  .figure-card .emoji { font-size:2rem; } .figure-card strong { display:block; font-size:0.85rem; } .figure-card small { opacity:0.75; font-size:0.75rem; }
+  .footer { text-align:center; padding:1rem; opacity:0.45; font-size:0.75rem; }
+  @media (max-width:600px) { .header h1 { font-size:1.3rem; } .nav-tabs button { font-size:0.6rem; padding:0.2rem 0.45rem; } .card { padding:0.8rem; } }
+  .krist { display:grid; gap:1px; margin:0.4rem auto; justify-content:center; }
+  .krist div { display:flex; align-items:center; justify-content:center; font-weight:700; font-size:0.9rem; background:#2d1b4e; border:1px solid #4a1a6e; cursor:pointer; border-radius:2px; aspect-ratio:1; min-width:28px; min-height:28px; user-select:none; }
+  .krist div.gefunden { background:#065f4666; border-color:#34d399; color:#6ee7b7; }
+  .krist div.gewaehlt { background:#6b2fa0; border-color:#fbbf24; }
+  .wortliste { display:flex; flex-wrap:wrap; gap:0.3rem; margin:0.4rem 0; }
+  .wortliste span { background:#4a1a6e; padding:0.15rem 0.6rem; border-radius:999px; font-size:0.8rem; }
+  .wortliste span.erledigt { background:#065f4666; text-decoration:line-through; opacity:0.6; }
+
+  /* ASW / Sprachwissen-inspiriertes Schul-Layout */
+  :root { --asw-blue:#164a7b; --asw-blue-dark:#0e3358; --asw-cyan:#31a9c6; --asw-yellow:#f5c542; --paper:#f4f7fa; --ink:#243746; --line:#d8e2ea; --ok:#2f855a; --bad:#c53030; }
+  body { background:var(--paper); color:var(--ink); font-family:Arial,'Segoe UI',sans-serif; }
+  .header { background:linear-gradient(115deg,var(--asw-blue-dark),var(--asw-blue)); border:0; padding:1rem max(1rem,calc((100% - 1100px)/2)); text-align:left; box-shadow:0 3px 12px #1235; }
+  .header-inner { display:flex; align-items:center; gap:1rem; max-width:1100px; margin:auto; }
+  .asw-logo { width:76px; height:76px; flex:0 0 auto; border-radius:16px; background:#fff; color:var(--asw-blue); display:grid; place-items:center; font-weight:900; font-size:1.25rem; letter-spacing:-.08em; box-shadow:0 2px 8px #0003; }
+  .asw-logo small { display:block; font-size:.42rem; letter-spacing:.03em; text-align:center; color:#4b6578; }
+  .header h1 { color:#fff; text-shadow:none; font-size:clamp(1.35rem,3vw,2rem); }
+  .header h1 span { color:var(--asw-yellow); }
+  .header p { color:#eaf7fb; }
+  .tool-row { background:#fff; border-bottom:1px solid var(--line); padding:.6rem max(1rem,calc((100% - 1100px)/2)); display:flex; gap:.55rem; align-items:center; flex-wrap:wrap; position:sticky; top:0; z-index:120; box-shadow:0 2px 8px #1231; }
+  .tool-row .progress-wrap { flex:1 1 250px; min-width:180px; }
+  .tool-row .progress-label { display:flex; justify-content:space-between; font-size:.78rem; font-weight:700; color:var(--asw-blue-dark); }
+  .tool-row .progress-bar { background:#dce6ed; margin:.22rem 0 0; height:.65rem; }
+  .tool-row .progress-fill,.progress-fill { background:linear-gradient(90deg,var(--asw-cyan),var(--asw-yellow)); }
+  .nav-tabs { top:59px; background:#eef4f7; border-bottom:1px solid var(--line); padding:.5rem; gap:.35rem; }
+  .nav-tabs button { background:#fff; color:var(--asw-blue); border:1px solid #c7d6df; font-size:.75rem; }
+  .nav-tabs button:hover { background:#e4f4f8; transform:none; }
+  .nav-tabs button.active { background:var(--asw-blue); color:#fff; border-color:var(--asw-blue); box-shadow:none; }
+  .main { max-width:980px; padding:1.2rem; }
+  .card { background:#fff; color:var(--ink); border:1px solid var(--line); border-radius:12px; box-shadow:0 3px 12px #163b5c12; }
+  .card h2 { color:var(--asw-blue); } .card h3 { color:#257b91; }
+  .badge { background:var(--asw-blue); } .badge-ue { background:var(--asw-yellow); color:#243746; }
+  .uebung { background:#f6fafc; border-left-color:var(--asw-yellow); }
+  .btn { background:var(--asw-blue); color:#fff; border-radius:7px; }
+  .btn:hover { background:var(--asw-blue-dark); transform:none; }
+  .btn-secondary { background:#fff; color:var(--asw-blue); border:1px solid #9db8ca; }
+  .btn-secondary:hover { background:#eaf4f8; }
+  .input-field { background:#fff; color:var(--ink); border:1.5px solid #9db8ca; }
+  .input-field:focus { border-color:var(--asw-cyan); box-shadow:0 0 0 3px #31a9c622; }
+  .mc-option,.figure-card { background:#f7fafc; border-color:#d2dee6; }
+  .mc-option:hover { background:#edf7fa; border-color:var(--asw-cyan); }
+  .mc-option.selected { background:#fff7d6; border-color:#d8a900; }
+  .drag-item { background:var(--asw-blue); } .drop-zone { border-color:#94afc0; background:#fbfdfe; }
+  .tag,.wortliste span { background:#dcecf2; color:var(--ink); }
+  .feedback.richtig { color:#236b45; background:#e8f6ee; border-color:#68b98a; }
+  .feedback.falsch { color:#a52b2b; background:#fff0f0; border-color:#e18a8a; }
+  .footer { color:#4b6578; opacity:1; }
+  .sr-only { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0); }
+  .toast { position:fixed; right:1rem; bottom:1rem; background:var(--asw-blue-dark); color:#fff; padding:.75rem 1rem; border-radius:8px; box-shadow:0 5px 20px #0004; z-index:300; display:none; }
+  @media(max-width:600px){ .asw-logo{width:58px;height:58px}.tool-row{position:relative}.nav-tabs{top:0}.main{padding:.7rem}.header-inner{align-items:flex-start} }
+
+  /* Kopfzeile und Lernfortschritt wie in Sprachwissen I/II */
+  :root { --header-red:#a91329; --header-red-light:#c5273d; --progress-green:#22a866; --progress-orange:#e89a0c; }
+  .header { min-height:74px; padding:.7rem clamp(.8rem,2.4vw,2rem); background:linear-gradient(115deg,#941025,var(--header-red) 65%,#b61c34); box-shadow:0 4px 16px #5e071a3b; }
+  .header-inner { max-width:none; justify-content:space-between; gap:1rem; }
+  .header-copy { min-width:0; }
+  .header h1 { font-size:clamp(.9rem,1.6vw,1.18rem); font-weight:800; line-height:1.25; }
+  .header h1 span { color:#fff; }
+  .header p { font-size:.82rem; font-weight:700; margin:.18rem 0 0; }
+  .header-actions { display:flex; align-items:center; gap:.65rem; flex:0 0 auto; }
+  .asw-logo { width:48px; height:48px; border-radius:7px; color:#4b5961; font-size:1rem; box-shadow:0 2px 9px #58071955; }
+  .asw-logo small { font-size:.28rem; line-height:1.05; }
+  .header-icon { width:48px; height:48px; display:grid; place-items:center; border-radius:7px; border:1px solid #ffffff80; background:#fff; color:#6b7074; font-size:1.45rem; box-shadow:0 2px 9px #58071955; }
+  .overview-btn { min-height:46px; padding:.65rem 1rem; border:1px solid #ffffff60; border-radius:8px; background:#ffffff16; color:#fff; font-weight:800; cursor:pointer; }
+  .overview-btn:hover { background:#ffffff2b; }
+  .tool-row { display:none; }
+  .nav-tabs { top:0; border-bottom-color:#e0b2ba; background:#fff7f8; }
+  .nav-tabs button.active { background:var(--header-red); border-color:var(--header-red); }
+  .main { max-width:1180px; }
+  .character-hero { width:100%; display:block; margin:.65rem 0 1rem; border-radius:12px; aspect-ratio:3/2; object-fit:cover; box-shadow:0 7px 24px #21384e22; }
+  .figure-grid { display:grid; grid-template-columns:repeat(6,minmax(105px,1fr)); gap:.65rem; }
+  .figure-card { min-width:0; padding:0 0 .65rem; overflow:hidden; background:#fff; }
+  .figure-portrait { height:126px; background-image:url('vamperl-figuren-v2.png'); background-repeat:no-repeat; background-size:470% auto; border-bottom:1px solid var(--line); margin-bottom:.55rem; }
+  .p-lizzi{background-position:0% 38%}.p-vamperl{background-position:27% 82%}.p-anna{background-position:46% 34%}.p-maringer{background-position:66% 32%}.p-flocki{background-position:70% 83%}.p-hannes{background-position:100% 42%}
+  .progress-page { padding:clamp(1rem,3vw,2.25rem); }
+  .progress-heading { display:flex; justify-content:space-between; align-items:flex-start; gap:1rem; flex-wrap:wrap; }
+  .progress-kicker { display:inline-block; background:#dcf4e6; color:#126442; padding:.45rem .75rem; border-radius:999px; font-weight:800; }
+  .progress-heading h2 { margin:.55rem 0 .35rem; font-size:clamp(1.7rem,4vw,2.75rem); color:#173651; }
+  .progress-heading p { max-width:680px; color:#567087; font-size:1rem; line-height:1.55; }
+  .file-actions { display:flex; gap:.7rem; flex-wrap:wrap; }
+  .file-actions .btn { font-size:1rem; padding:.75rem 1.1rem; }
+  .file-actions .import-btn { background:#118842; }
+  .progress-legend { display:flex; gap:1.4rem; flex-wrap:wrap; margin:1.25rem 0; color:#567087; }
+  .legend-dot { width:12px; height:12px; display:inline-block; border-radius:50%; margin-right:.4rem; }
+  .progress-dashboard { display:grid; grid-template-columns:minmax(260px,380px) minmax(280px,1fr); gap:1rem; }
+  .progress-card { border:1px solid #cfe0ed; border-radius:20px; padding:1.4rem; text-align:center; background:#fff; box-shadow:0 10px 28px #21415d10; }
+  .progress-card h3 { margin:0 0 .85rem; color:#194d80; font-size:1.25rem; }
+  .double-ring { --test:0deg; --exercise:0deg; width:230px; height:230px; margin:0 auto 1rem; border-radius:50%; display:grid; place-items:center; background:conic-gradient(var(--progress-green) var(--test),#e4edf3 0); position:relative; }
+  .double-ring::before { content:''; position:absolute; inset:18px; border-radius:50%; background:#fff; }
+  .inner-ring { position:relative; z-index:1; width:176px; height:176px; border-radius:50%; display:grid; place-items:center; background:conic-gradient(var(--progress-orange) var(--exercise),#e4edf3 0); }
+  .inner-ring::before { content:''; position:absolute; inset:18px; background:#fff; border-radius:50%; }
+  .ring-center { position:relative; z-index:2; color:#173651; }
+  .ring-center strong { display:block; font-size:2rem; }
+  .ring-center small { font-weight:800; color:#567087; }
+  .stat-line { margin:.5rem 0; color:#567087; }.stat-line strong{color:#173651}.stars{color:#9b6a00;font-weight:800;margin-top:.75rem}
+  .feedback-panel { text-align:left; display:flex; flex-direction:column; justify-content:center; background:linear-gradient(135deg,#fff9e5,#fff); }
+  .feedback-panel h3 { font-size:1.4rem; }
+  .feedback-message { font-size:1.1rem; line-height:1.55; color:#354f64; margin:.35rem 0 1rem; }
+  .feedback-meter { height:12px; border-radius:999px; background:#e4edf3; overflow:hidden; }.feedback-meter span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--progress-orange),var(--progress-green));transition:width .5s}
+  @media(max-width:800px){.figure-grid{grid-template-columns:repeat(3,1fr)}.progress-dashboard{grid-template-columns:1fr}.header-icon{display:none}}
+  @media(max-width:520px){.figure-grid{grid-template-columns:repeat(2,1fr)}.header-actions{gap:.35rem}.overview-btn{padding:.55rem}.asw-logo{width:42px;height:42px}.double-ring{width:205px;height:205px}.inner-ring{width:155px;height:155px}}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <div class="header-copy"><h1><span>Deutsch Phase 3: „Das Vamperl“ von Renate Welsh</span></h1><p>Überblick</p></div>
+    <div class="header-actions">
+      <div class="asw-logo" aria-label="ASW Logo">ASW<small>ALLEMANNENSCHULE<br>WUTÖSCHINGEN</small></div>
+      <div class="header-icon" aria-hidden="true">⌨</div>
+      <button class="overview-btn" type="button" onclick="goChapter('0')">Überblick</button>
+    </div>
+  </div>
+</header>
+<section class="tool-row" aria-label="Lernstand und Dateiaktionen">
+  <div class="progress-wrap">
+    <div class="progress-label"><span>Mein Lernfortschritt</span><span id="pToolbarText">0 %</span></div>
+    <div class="progress-bar" role="progressbar" aria-label="Fortschritt" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-fill" id="pToolbar"></div></div>
+  </div>
+  <button class="btn btn-sm" type="button" onclick="exportState()">⬇ Exportieren</button>
+  <button class="btn btn-secondary btn-sm" type="button" onclick="document.getElementById('importFile').click()">⬆ Importieren</button>
+  <input class="sr-only" id="importFile" type="file" accept="application/json,.json" onchange="importState(event)">
+</section>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<nav class="nav-tabs" id="navTabs">
+  <button class="active" data-chapter="0">📖 Start</button>
+  <button data-chapter="1">1 · Spinnennetz</button>
+  <button data-chapter="2">2 · Kaffee</button>
+  <button data-chapter="3">3 · Fliegen</button>
+  <button data-chapter="4">4 · Unterwegs</button>
+  <button data-chapter="5">5 · Gefahr</button>
+  <button data-chapter="6">6 · Kamille</button>
+  <button data-chapter="7">7 · Rad</button>
+  <button data-chapter="8">8 · Zuviel</button>
+  <button data-chapter="9">9 · Entscheidung</button>
+  <button data-chapter="10">10 · Glassturz</button>
+  <button data-chapter="11">11 · Ende</button>
+  <button data-chapter="12">🏆 Quiz</button>
+  <button data-chapter="13">📊 Fortschritt</button>
+</nav>
+
+<main class="main">
+
+<!-- ===== KAPITEL 0 ===== -->
+<section class="chapter active" id="chapter-0">
+  <div class="card"><h2>🧛 Willkommen!</h2>
+  <p>Dieses digitale Lernpaket begleitet dich durch alle <strong>11 Kapitel</strong> von Renate Welschs "Das Vamperl".</p>
+  <p>Jedes Kapitel enthält interaktive Übungen: Quiz, Lückentexte, Zuordnungen, Schreibaufgaben, Kreuzworträtsel & mehr!</p></div>
+  <div class="card"><h3>👥 Figuren</h3>
+  <img class="character-hero" src="vamperl-figuren-v2.png" alt="Neu illustrierte Figuren: Frau Lizzi, Vamperl, Frau Anna, Frau Maringer, Flocki und Hannes im Innenhof">
+  <div class="figure-grid">
+    <div class="figure-card"><div class="figure-portrait p-lizzi"></div><strong>Frau Lizzi</strong><small>67 J., Ziehmutter</small></div>
+    <div class="figure-card"><div class="figure-portrait p-vamperl"></div><strong>Vamperl</strong><small>saugt Gift aus Galle</small></div>
+    <div class="figure-card"><div class="figure-portrait p-anna"></div><strong>Frau Anna</strong><small>Nachbarin, Flocki</small></div>
+    <div class="figure-card"><div class="figure-portrait p-maringer"></div><strong>Frau Maringer</strong><small>strenge Nachbarin</small></div>
+    <div class="figure-card"><div class="figure-portrait p-flocki"></div><strong>Flocki</strong><small>Foxterrier</small></div>
+    <div class="figure-card"><div class="figure-portrait p-hannes"></div><strong>Hannes</strong><small>Junge, Sohn Müller</small></div>
+  </div></div>
+  <div class="card"><h3>📚 11 Kapitel</h3>
+  <ol style="column-count:2;column-gap:2rem;font-size:0.85rem;">
+    <li>Ein Spinnennetz voll Überraschung</li><li>Keine Ruhe zum Kaffee</li>
+    <li>Vom Fliegenlernen und anderen Künsten</li><li>Vamperl unterwegs</li>
+    <li>Gefahr!</li><li>Kamillentee und Langeweile</li>
+    <li>Radfahren verboten</li><li>Was zu viel ist</li>
+    <li>Eine schwere Entscheidung</li><li>Unter dem Glassturz</li>
+    <li>Letztes Kapitel</li>
+  </ol></div>
+  <div class="card"><h3>🎯 Fortschritt</h3>
+  <div class="progress-bar"><div class="progress-fill" id="pGlobal" style="width:0%"></div></div>
+  <p style="text-align:right;font-size:0.8rem;">⭐ <strong id="pText">0%</strong></p></div>
+</section>
+
+<!-- ===== KAPITEL 1 ===== -->
+<section class="chapter" id="chapter-1">
+  <div class="card"><h2>📗 Kap. 1: Ein Spinnennetz voll Überraschung</h2>
+  <p><span class="badge badge-kap">S. 8–19</span> Frau Lizzi kommt von der Kur zurück. Beim Putzen der Wohnung singt sie ein Vampir-Lied. An der Decke entdeckt sie ein Spinnennetz – und darin einen winzigen, schlafenden Vampir! Nachbarin Frau Anna mit Foxterrier Flocki will den Vampir ins Klo werfen. Doch Frau Lizzi beschützt ihn und zieht ihn mit einer Puppenflasche und warmer Milch mit Zucker auf.</p>
+  </div>
+
+  <!-- AB1: Steckbrief zu Frau Lizzi -->
+  <div class="card"><h3><span class="badge badge-ue">📝 AB1</span> Steckbrief: Frau Lizzi</h3>
+  <div class="uebung"><p><strong>Beschreibe Frau Lizzi. Fülle aus:</strong></p>
+  <p>Alter: <input class="input-field input-sm" id="st_alter" placeholder="... Jahre"></p>
+  <p>Wohnsituation: <input class="input-field" id="st_wohn" placeholder="z.B. allein in einer Wohnung"></p>
+  <p>Hobbys: <input class="input-field" id="st_hobby" placeholder="z.B. Singen beim Putzen"></p>
+  <p>Charakter (3 Adjektive): <input class="input-field" id="st_char" placeholder="z.B. freundlich, mutig, fürsorglich"></p>
+  <button class="btn" onclick="chkSteckbrief()">✔️ Prüfen</button>
+  <div class="feedback" id="st_fb"></div></div></div>
+
+  <!-- AB2: Gefühle benennen -->
+  <div class="card"><h3><span class="badge badge-ue">💭 AB2</span> Gefühle zuordnen</h3>
+  <p><strong>Wie reagieren Frau Lizzi und Frau Anna auf das Vamperl? Ordne die Adjektive zu (Drag & Drop):</strong></p>
+  <div style="display:flex;flex-wrap:wrap;gap:1rem;">
+  <div style="flex:1;min-width:150px;"><h4 style="color:#6ee7b7;font-size:0.85rem;">😊 Frau Lizzi</h4>
+  <div class="drop-zone" id="lizziGef" style="min-height:70px;"></div></div>
+  <div style="flex:1;min-width:150px;"><h4 style="color:#f87171;font-size:0.85rem;">😠 Frau Anna</h4>
+  <div class="drop-zone" id="annaGef" style="min-height:70px;"></div></div></div>
+  <div class="drag-container">
+  <div class="drag-item" draggable="true" data-ziel="lizzi">liebevoll</div>
+  <div class="drag-item" draggable="true" data-ziel="lizzi">fürsorglich</div>
+  <div class="drag-item" draggable="true" data-ziel="lizzi">erschrocken (kurz)</div>
+  <div class="drag-item" draggable="true" data-ziel="anna">hysterisch</div>
+  <div class="drag-item" draggable="true" data-ziel="anna">grausam</div>
+  <div class="drag-item" draggable="true" data-ziel="anna">ängstlich</div></div>
+  <button class="btn" onclick="chkGefuehle()">✔️ Prüfen</button><div class="feedback" id="gef_fb"></div></div>
+
+  <!-- Richtig/Falsch -->
+  <div class="card"><h3><span class="badge badge-ue">❓ AB3</span> Richtig oder Falsch?</h3>
+  <p>1️⃣ Frau Lizzi findet das Vamperl im Kühlschrank.</p>
+  <button class="btn btn-secondary btn-sm" onclick="rf(1,0,false)">✅ Richtig</button><button class="btn btn-secondary btn-sm" onclick="rf(1,0,true)">❌ Falsch</button><div class="feedback" id="rf1_0"></div>
+  <p>2️⃣ Frau Anna will das Vamperl ins Klo werfen.</p>
+  <button class="btn btn-secondary btn-sm" onclick="rf(1,1,true)">✅ Richtig</button><button class="btn btn-secondary btn-sm" onclick="rf(1,1,false)">❌ Falsch</button><div class="feedback" id="rf1_1"></div>
+  <p>3️⃣ Das Vamperl bekommt warme Milch mit Zucker.</p>
+  <button class="btn btn-secondary btn-sm" onclick="rf(1,2,true)">✅ Richtig</button><button class="btn btn-secondary btn-sm" onclick="rf(1,2,false)">❌ Falsch</button><div class="feedback" id="rf1_2"></div>
+  <p id="s1" style="margin-top:0.3rem;font-weight:600;">⭐ 0/3</p></div>
+</section>
+
+<!-- ===== KAPITEL 2 ===== -->
+<section class="chapter" id="chapter-2">
+  <div class="card"><h2>📗 Kap. 2: Keine Ruhe zum Kaffee</h2>
+  <p><span class="badge badge-kap">S. 20–27</span> Frau Lizzi will Kaffee trinken – da klopfen Frau Anna und Frau Maringer. Sie verlangen Auskunft über den Vampir. Frau Lizzi lügt: "Nein" (in den Müll geworfen hat sie ihn ja nicht!). Die beiden Nachbarinnen streiten sich heftig über ihre Hunde Flocki und Bello. Endlich gehen sie. Das Vamperl fiept und bekommt die Flasche.</p></div>
+
+  <!-- AB3 dtv: Zitate interpretieren -->
+  <div class="card"><h3><span class="badge badge-ue">💬 AB4</span> Was ist gemeint? Zitate verstehen</h3>
+  <div class="uebung"><p><strong>"Wenn es um das Tier geht, können Sie ganz beruhigt sein." (Frau Lizzi, S.20)</strong></p>
+  <p>Was meint Frau Lizzi eigentlich? <input class="input-field input-lg" id="zitat1" placeholder="Schreibe deine Erklärung..."></p>
+  <button class="btn btn-sm" onclick="chkZitat1()">✔️ Prüfen</button><div class="feedback" id="zit1_fb"></div>
+  <p style="margin-top:0.5rem;"><strong>"Die Leute haben keinen Sinn für eine Vampirschönheit." (Frau Lizzi, S.25)</strong></p>
+  <p>Was bedeutet das? <input class="input-field input-lg" id="zitat2" placeholder="Schreibe deine Erklärung..."></p>
+  <button class="btn btn-sm" onclick="chkZitat2()">✔️ Prüfen</button><div class="feedback" id="zit2_fb"></div></div></div>
+
+  <!-- Zuordnung -->
+  <div class="card"><h3><span class="badge badge-ue">🧩 AB5</span> Wer ist wer? Ordne zu</h3>
+  <div style="display:flex;flex-wrap:wrap;gap:1rem;">
+  <div><div class="drag-item" draggable="true" data-pair="flocki">Flocki</div>
+  <div class="drag-item" draggable="true" data-pair="anna">Frau Anna</div>
+  <div class="drag-item" draggable="true" data-pair="maringer">Frau Maringer</div>
+  <div class="drag-item" draggable="true" data-pair="bello">Bello</div></div>
+  <div><div class="drop-zone" data-pair="anna" style="min-width:140px;">🤍 Flockis Besitzerin</div>
+  <div class="drop-zone" data-pair="flocki" style="min-width:140px;">🤍 Ein Foxterrier</div>
+  <div class="drop-zone" data-pair="maringer" style="min-width:140px;">🤍 Strenge Nachbarin</div>
+  <div class="drop-zone" data-pair="bello" style="min-width:140px;">🤍 Maringers Hund</div></div></div>
+  <button class="btn" onclick="chkZuord2()">✔️ Prüfen</button><div class="feedback" id="zuo2_fb"></div></div>
+</section>
+
+<!-- ===== KAPITEL 3 ===== -->
+<section class="chapter" id="chapter-3">
+  <div class="card"><h2>📗 Kap. 3: Vom Fliegenlernen und anderen Künsten</h2>
+  <p><span class="badge badge-kap">S. 28–38</span> Das Vamperl wächst rasant: Schmuckschachtel → Knopfschachtel → Nähkorb. Es lernt fliegen (1. Versuch: Bauchlandung). Im Treppenhaus hört Frau Lizzi Frau Müller auf Hannes schimpfen. Das Vamperl fliegt los und <strong>sticht ihr in die Galle</strong> – plötzlich ist sie freundlich! Frau Lizzi nennt es "Vamperl".</p></div>
+
+  <!-- AB4: Entwicklung malen/beschreiben -->
+  <div class="card"><h3><span class="badge badge-ue">📐 AB6</span> Die Entwicklung des Vamperl</h3>
+  <p><strong>Wo schläft das Vamperl in welcher Woche?</strong></p>
+  <p>1. Woche: <input class="input-field input-sm" id="entw1" placeholder="..."> (Tipp: Schmuckschachtel)</p>
+  <p>2. Woche: <input class="input-field input-sm" id="entw2" placeholder="..."> (Tipp: Knopfschachtel)</p>
+  <p>3. Woche: <input class="input-field input-sm" id="entw3" placeholder="..."> (Tipp: Nähkorb)</p>
+  <button class="btn" onclick="chkEntw()">✔️ Prüfen</button><div class="feedback" id="entw_fb"></div></div>
+
+  <!-- RF -->
+  <div class="card"><h3><span class="badge badge-ue">❓ AB7</span> Richtig oder Falsch?</h3>
+  <p>1️⃣ Das Vamperl schläft zuerst in einer Zigarrenkiste.</p>
+  <button class="btn btn-secondary btn-sm" onclick="rf(3,0,false)">✅ Richtig</button><button class="btn btn-secondary btn-sm" onclick="rf(3,0,true)">❌ Falsch</button><div class="feedback" id="rf3_0"></div>
+  <p>2️⃣ Das Vamperl sticht Frau Müller in die Galle.</p>
+  <button class="btn btn-secondary btn-sm" onclick="rf(3,1,true)">✅ Richtig</button><button class="btn btn-secondary btn-sm" onclick="rf(3,1,false)">❌ Falsch</button><div class="feedback" id="rf3_1"></div>
+  <p>3️⃣ Frau Müller wird danach noch wütender.</p>
+  <button class="btn btn-secondary btn-sm" onclick="rf(3,2,false)">✅ Richtig</button><button class="btn btn-secondary btn-sm" onclick="rf(3,2,true)">❌ Falsch</button><div class="feedback" id="rf3_2"></div>
+  <p id="s3" style="margin-top:0.3rem;font-weight:600;">⭐ 0/3</p></div>
+
+  <!-- AB5: Geschichte weiterschreiben -->
+  <div class="card"><h3><span class="badge badge-ue">✏️ AB8</span> Die Geschichte weiterschreiben</h3>
+  <div class="uebung"><p><strong>Was passiert, nachdem Frau Müller auf einmal freundlich ist?</strong></p>
+  <textarea class="input-field" rows="2" style="max-width:100%;height:60px;" placeholder="Frau Müller lächelt Hannes an und sagt..."></textarea></div></div>
+
+  <!-- Vamperl-Lied -->
+  <div class="card"><h3><span class="badge badge-ue">🎵 AB9</span> Das Vamperl-Lied</h3>
+  <p>"Mein Vamperl trinkt nur <input class="input-field input-sm" id="lied1" placeholder="..."> und mag kein <input class="input-field input-sm" id="lied2" placeholder="..."> und macht die bösen Leute alle wieder <input class="input-field input-sm" id="lied3" placeholder="...">."</p>
+  <button class="btn" onclick="chkLied()">✔️ Prüfen</button><div class="feedback" id="lied_fb"></div></div>
+</section>
+
+<!-- ===== KAPITEL 4 ===== -->
+<section class="chapter" id="chapter-4">
+  <div class="card"><h2>📗 Kap. 4: Vamperl unterwegs</h2>
+  <p><span class="badge badge-kap">S. 39–44</span> Im Park wird Dieter von Kindern gehänselt: "Ri-ra-rum, der Dieter, der ist dumm!" Das Vamperl sticht sie in die Galle – alle werden nett. Karin lädt Dieter zu Käsenudeln ein. Frau Lizzi schimpft mit Vamperl. Es weint eine Träne.</p></div>
+
+  <!-- AB6: Nacherzählen -->
+  <div class="card"><h3><span class="badge badge-ue">📝 AB10</span> Die Geschichte nacherzählen</h3>
+  <p><strong>Sortiere die Ereignisse in die richtige Reihenfolge:</strong></p>
+  <div id="sort4">
+    <div style="margin:0.15rem 0;padding:0.35rem;background:#2d1b4e;border-radius:0.4rem;display:flex;align-items:center;gap:0.4rem;">
+      <span class="badge" id="s4_0">?</span><span style="flex:1;font-size:0.85rem;">Karin lädt Dieter zum Essen ein.</span>
+      <button class="btn btn-secondary btn-sm" style="padding:0.15rem 0.4rem;font-size:0.7rem;" onclick="mvSort(0,4,-1)">⬆</button>
+      <button class="btn btn-secondary btn-sm" style="padding:0.15rem 0.4rem;font-size:0.7rem;" onclick="mvSort(0,4,1)">⬇</button>
+    </div>
+    <div style="margin:0.15rem 0;padding:0.35rem;background:#2d1b4e;border-radius:0.4rem;display:flex;align-items:center;gap:0.4rem;">
+      <span class="badge" id="s4_1">?</span><span style="flex:1;font-size:0.85rem;">Vamperl sticht die Kinder.</span>
+      <button class="btn btn-secondary btn-sm" style="padding:0.15rem 0.4rem;font-size:0.7rem;" onclick="mvSort(1,4,-1)">⬆</button>
+      <button class="btn btn-secondary btn-sm" style="padding:0.15rem 0.4rem;font-size:0.7rem;" onclick="mvSort(1,4,1)">⬇</button>
+    </div>
+    <div style="margin:0.15rem 0;padding:0.35rem;background:#2d1b4e;border-radius:0.4rem;display:flex;align-items:center;gap:0.4rem;">
+      <span class="badge" id="s4_2">?</span><span style="flex:1;font-size:0.85rem;">Kinder ärgern Dieter im Park.</span>
+      <button class="btn btn-secondary btn-sm" style="padding:0.15rem 0.4rem;font-size:0.7rem;" onclick="mvSort(2,4,-1)">⬆</button>
+      <button class="btn btn-secondary btn-sm" style="padding:0.15rem 0.4rem;font-size:0.7rem;" onclick="mvSort(2,4,1)">⬇</button>
+    </div>
+    <div style="margin:0.15rem 0;padding:0.35rem;background:#2d1b4e;border-radius:0.4rem;display:flex;align-items:center;gap:0.4rem;">
+      <span class="badge" id="s4_3">?</span><span style="flex:1;font-size:0.85rem;">Frau Lizzi schimpft.</span>
+      <button class="btn btn-secondary btn-sm" style="padding:0.15rem 0.4rem;font-size:0.7rem;" onclick="mvSort(3,4,-1)">⬆</button>
+      <button class="btn btn-secondary btn-sm" style="padding:0.15rem 0.4rem;font-size:0.7rem;" onclick="mvSort(3,4,1)">⬇</button>
+    </div>
+  </div>
+  <button class="btn" onclick="chkSort(4)">✔️ Prüfen</button><div class="feedback" id="sort4_fb"></div></div>
+
+  <!-- Reim -->
+  <div class="card"><h3><span class="badge badge-ue">🎶 AB11</span> Der Kinderreim</h3>
+  <p>"Ri-ra-<input class="input-field input-sm" id="reim1" placeholder="...">, der Dieter, der ist <input class="input-field input-sm" id="reim2" placeholder="...">."</p>
+  <button class="btn" onclick="chkReim()">✔️ Prüfen</button><div class="feedback" id="reim_fb"></div></div>
+</section>
+
+<!-- ===== KAPITEL 5 ===== -->
+<section class="chapter" id="chapter-5">
+  <div class="card"><h2>📗 Kap. 5: Gefahr!</h2>
+  <p><span class="badge badge-kap">S. 45–55</span> Vamperl reißt bei Hupkonzert aus. Es sticht Autofahrer in die Galle – alle werden höflich ("Nach Ihnen!"). Zeitungsverkäufer Herr Kühne sieht es und alarmiert die Polizei. Polizist Wipfel kommt. Frau Lizzi versteckt Vamperl.</p></div>
+
+  <!-- AB7+8: Gedicht -->
+  <div class="card"><h3><span class="badge badge-ue">📝 AB12</span> Das Vamperl-Gedicht untersuchen</h3>
+  <div class="uebung"><p><em>"Morgens schon in aller Frühe wird mein Vamperl munter. Flitzt wie ein geölter Blitz auf die Straße runter. Wo die Leute schimpfen, streiten wegen lauter Kleinigkeiten, wo sie raufen, fluchen, schrein, dort mischt sich mein Vamperl ein."</em></p>
+  <p><strong>1️⃣ Wie viele Verse hat das Gedicht? </strong><input class="input-field input-sm" id="gedVers" placeholder="Zahl"></p>
+  <p><strong>2️⃣ Was reimt sich? </strong>Frühe – <input class="input-field input-sm" id="gedReim" placeholder="...">, schrein – <input class="input-field input-sm" id="gedReim2" placeholder="..."></p>
+  <p><strong>3️⃣ Welches Wort reimt sich auf "Blitz"? </strong><input class="input-field input-sm" id="gedBlitz" placeholder="..."></p>
+  <button class="btn" onclick="chkGedicht()">✔️ Prüfen</button><div class="feedback" id="ged_fb"></div></div></div>
+
+  <!-- Gedicht schreiben (AB8) -->
+  <div class="card"><h3><span class="badge badge-ue">✏️ AB13</span> Ein eigenes Gedicht schreiben</h3>
+  <div class="uebung"><p><strong>Schreibe ein kleines Gedicht über ein Fantasietier.</strong></p>
+  <p style="font-size:0.8rem;opacity:0.7;">Tipp: "Mein (Tier) trinkt nur... und mag kein... und macht..."</p>
+  <textarea class="input-field" rows="3" style="max-width:100%;height:70px;" placeholder="Mein Drachen trinkt nur..."></textarea></div></div>
+
+  <!-- RF -->
+  <div class="card"><h3><span class="badge badge-ue">❓ AB14</span> Richtig oder Falsch?</h3>
+  <p>1️⃣ Vamperl hilft Autofahrern, freundlich zu sein.</p>
+  <button class="btn btn-secondary btn-sm" onclick="rf(5,0,true)">✅ Richtig</button><button class="btn btn-secondary btn-sm" onclick="rf(5,0,false)">❌ Falsch</button><div class="feedback" id="rf5_0"></div>
+  <p>2️⃣ Herr Kühne ist Polizist.</p>
+  <button class="btn btn-secondary btn-sm" onclick="rf(5,1,false)">✅ Richtig</button><button class="btn btn-secondary btn-sm" onclick="rf(5,1,true)">❌ Falsch</button><div class="feedback" id="rf5_1"></div>
+  <p>3️⃣ Herr Kühne ist Zeitungsverkäufer.</p>
+  <button class="btn btn-secondary btn-sm" onclick="rf(5,2,true)">✅ Richtig</button><button class="btn btn-secondary btn-sm" onclick="rf(5,2,false)">❌ Falsch</button><div class="feedback" id="rf5_2"></div>
+  <p id="s5" style="margin-top:0.3rem;font-weight:600;">⭐ 0/3</p></div>
+</section>
+
+<!-- ===== KAPITEL 6 ===== -->
+<section class="chapter" id="chapter-6">
+  <div class="card"><h2>📗 Kap. 6: Kamillentee und Langeweile</h2>
+  <p><span class="badge badge-kap">S. 56–61</span> Frau Lizzi hält Vamperl zuhause. Es ist gelangweilt. Sie kocht Kamillentee. Vamperl mag ihn nicht. Es spielt mit Wollknäueln, sitzt am Fenster und will raus. Frau Lizzi singt ihm Lieder vor und näht ihm ein Kissen.</p></div>
+
+  <!-- AB10: Wahr oder falsch -->
+  <div class="card"><h3><span class="badge badge-ue">📝 AB15</span> Wahr oder falsch?</h3>
+  <p>1️⃣ Frau Lizzi hält Vamperl streng im Haus.</p>
+  <button class="btn btn-secondary btn-sm" onclick="wf(6,0,true)">✅ Wahr</button><button class="btn btn-secondary btn-sm" onclick="wf(6,0,false)">❌ Falsch</button><div class="feedback" id="wf6_0"></div>
+  <p>2️⃣ Vamperl liebt Kamillentee.</p>
+  <button class="btn btn-secondary btn-sm" onclick="wf(6,1,false)">✅ Wahr</button><button class="btn btn-secondary btn-sm" onclick="wf(6,1,true)">❌ Falsch</button><div class="feedback" id="wf6_1"></div>
+  <p>3️⃣ Frau Lizzi näht Vamperl ein Kissen.</p>
+  <button class="btn btn-secondary btn-sm" onclick="wf(6,2,true)">✅ Wahr</button><button class="btn btn-secondary btn-sm" onclick="wf(6,2,false)">❌ Falsch</button><div class="feedback" id="wf6_2"></div>
+  <p id="s6" style="margin-top:0.3rem;font-weight:600;">⭐ 0/3</p></div>
+
+  <!-- AB11: Tagebucheintrag -->
+  <div class="card"><h3><span class="badge badge-ue">✏️ AB16</span> Tagebucheintrag schreiben</h3>
+  <div class="uebung"><p><strong>Schreibe einen Tagebucheintrag aus Vamperls Sicht:</strong></p>
+  <textarea class="input-field" rows="3" style="max-width:100%;height:80px;" placeholder="Liebes Tagebuch! Heute war ich den ganzen Tag in der Wohnung. Frau Lizzi hat Kamillentee gekocht, aber..."></textarea></div></div>
+</section>
+
+<!-- ===== KAPITEL 7 ===== -->
+<section class="chapter" id="chapter-7">
+  <div class="card"><h2>📗 Kap. 7: Radfahren verboten</h2>
+  <p><span class="badge badge-kap">S. 62–66</span> Hannes & Freunde spielen Fußball im Hof. Der Hausmeister verbietet es. Da kommt Vamperl und sticht ihn in die Galle – plötzlich erlaubt er alles: Radfahren, Ballspielen! Die Kinder staunen.</p></div>
+
+  <div class="card"><h3><span class="badge badge-ue">📝 AB17</span> Multiple Choice</h3>
+  <div id="mc7a"><p><strong>Was verbietet der Hausmeister?</strong></p>
+  <label class="mc-option" onclick="mc(this,0,'mc7a')">A) Lautes Singen</label>
+  <label class="mc-option" onclick="mc(this,1,'mc7a')">B) Fußballspielen</label>
+  <label class="mc-option" onclick="mc(this,2,'mc7a')">C) Hunde mitbringen</label></div>
+  <button class="btn" onclick="chkMC('mc7a',1)">✔️ Prüfen</button><div class="feedback" id="mc7a_fb"></div></div>
+</section>
+
+<!-- ===== KAPITEL 8 ===== -->
+<section class="chapter" id="chapter-8">
+  <div class="card"><h2>📗 Kap. 8: Was zu viel ist</h2>
+  <p><span class="badge badge-kap">S. 67–77</span> Vamperl fliegt jede Nacht aus, um allen zu helfen. Es saugt und saugt – wird immer dicker. Eines Morgens ist es krank: ganz grau und schlapp. Es hat zu viel Gift aufgesogen!</p></div>
+
+  <!-- AB12: Sortieren -->
+  <div class="card"><h3><span class="badge badge-ue">📝 AB18</span> Gut oder Böse? Sortiere die Wörter</h3>
+  <div style="display:flex;flex-wrap:wrap;gap:1rem;">
+  <div style="flex:1;min-width:130px;"><h4 style="color:#f87171;font-size:0.85rem;">😡 Böse</h4><div class="drop-zone" id="badWords" style="min-height:55px;"></div></div>
+  <div style="flex:1;min-width:130px;"><h4 style="color:#6ee7b7;font-size:0.85rem;">😊 Gut</h4><div class="drop-zone" id="goodWords" style="min-height:55px;"></div></div></div>
+  <div class="drag-container">
+  <div class="drag-item" draggable="true" data-cat="bad">grob</div>
+  <div class="drag-item" draggable="true" data-cat="good">freundlich</div>
+  <div class="drag-item" draggable="true" data-cat="bad">gemein</div>
+  <div class="drag-item" draggable="true" data-cat="good">lieb</div>
+  <div class="drag-item" draggable="true" data-cat="bad">hässlich</div>
+  <div class="drag-item" draggable="true" data-cat="good">nett</div></div>
+  <button class="btn" onclick="chkWordSort()" style="margin-top:0.5rem;">✔️ Prüfen</button><div class="feedback" id="ws_fb"></div></div>
+
+  <!-- MC -->
+  <div class="card"><h3><span class="badge badge-ue">📝 AB19</span> Warum wird Vamperl krank?</h3>
+  <div id="mc8a"><label class="mc-option" onclick="mc(this,0,'mc8a')">A) Zu viel Milch</label>
+  <label class="mc-option" onclick="mc(this,1,'mc8a')">B) Zu viel Gift aufgesogen</label>
+  <label class="mc-option" onclick="mc(this,2,'mc8a')">C) Erkältet</label></div>
+  <button class="btn" onclick="chkMC('mc8a',1)">✔️ Prüfen</button><div class="feedback" id="mc8a_fb"></div></div>
+</section>
+
+<!-- ===== KAPITEL 9 ===== -->
+<section class="chapter" id="chapter-9">
+  <div class="card"><h2>📗 Kap. 9: Eine schwere Entscheidung</h2>
+  <p><span class="badge badge-kap">S. 78–91</span> Frau Lizzi pflegt das kranke Vamperl mit Honig und guten Worten. Im Bus sticht es noch einen Fahrgast, dann wird es ohnmächtig. Der Arzt ist ratlos. Soll sie es ins Krankenhaus bringen?</p></div>
+
+  <!-- AB14: Lückentext -->
+  <div class="card"><h3><span class="badge badge-ue">📝 AB20</span> Lückentext</h3>
+  <div class="uebung"><p>Frau Lizzi pflegt das Vamperl mit <input class="input-field input-sm" id="lk9_1" placeholder="...">. Im Bus sticht es einen <input class="input-field input-sm" id="lk9_2" placeholder="..."> Fahrgast und wird dann <input class="input-field input-sm" id="lk9_3" placeholder="...">. Sie muss eine schwere <input class="input-field input-sm" id="lk9_4" placeholder="..."> treffen.</p>
+  <button class="btn" onclick="chkLuecke9()">✔️ Prüfen</button><div class="feedback" id="lk9_fb"></div></div></div>
+
+  <!-- AB15: Argumentieren -->
+  <div class="card"><h3><span class="badge badge-ue">🗣️ AB21</span> Argumentieren: Pro & Contra</h3>
+  <div class="uebung"><p><strong>Soll Frau Lizzi das Vamperl ins Krankenhaus bringen?</strong></p>
+  <p>✅ <strong>JA,</strong> weil... <input class="input-field input-lg" placeholder="... (z.B. der Professor kann helfen)"></p>
+  <p>❌ <strong>NEIN,</strong> weil... <input class="input-field input-lg" placeholder="... (z.B. es hat Angst)"></p></div></div>
+</section>
+
+<!-- ===== KAPITEL 10 ===== -->
+<section class="chapter" id="chapter-10">
+  <div class="card"><h2>📗 Kap. 10: Unter dem Glassturz</h2>
+  <p><span class="badge badge-kap">S. 92–103</span> Im Krankenhaus setzt der Professor Vamperl unter eine Glasglocke. Es wird immer schwächer – keine bösen Wörter zum Saugen, nur sterile Luft. Frau Lizzi wacht Tag und Nacht, füttert es mit guten Gedanken.</p></div>
+
+  <!-- AB17: Sätze fortsetzen -->
+  <div class="card"><h3><span class="badge badge-ue">📝 AB22</span> Sätze fortsetzen</h3>
+  <div class="uebung"><p>① Der Professor setzt Vamperl unter Glas, weil...</p>
+  <input class="input-field input-lg" placeholder="...">
+  <p>② Vamperl wird nicht gesund, weil...</p>
+  <input class="input-field input-lg" placeholder="...">
+  <p>③ Frau Lizzi hilft ihm, indem sie...</p>
+  <input class="input-field input-lg" placeholder="..."></div></div>
+
+  <!-- Redewendungen Gift und Galle (Kohl) -->
+  <div class="card"><h3><span class="badge badge-ue">💡 AB23</span> Redewendungen: Gift und Galle</h3>
+  <div class="uebung"><p><strong>Die Redewendung "Gift und Galle spucken" bedeutet:</strong></p>
+  <div id="mc10a"><label class="mc-option" onclick="mc(this,0,'mc10a')">A) Etwas Süßes essen</label>
+  <label class="mc-option" onclick="mc(this,1,'mc10a')">B) Sehr wütend sein und schimpfen</label>
+  <label class="mc-option" onclick="mc(this,2,'mc10a')">C) Schlafen gehen</label></div>
+  <button class="btn" onclick="chkMC('mc10a',1)">✔️ Prüfen</button><div class="feedback" id="mc10a_fb"></div>
+  <p style="margin-top:0.5rem;"><strong>Was macht das Vamperl mit der Galle?</strong> Es saugt das <input class="input-field input-sm" id="galle" placeholder="..."> heraus.</p>
+  <button class="btn btn-sm" onclick="chkGalle()">✔️</button><div class="feedback" id="galle_fb"></div></div></div>
+</section>
+
+<!-- ===== KAPITEL 11 ===== -->
+<section class="chapter" id="chapter-11">
+  <div class="card"><h2>📗 Kap. 11: Letztes Kapitel</h2>
+  <p><span class="badge badge-kap">S. 104–111</span> Frau Lizzi holt Vamperl aus dem Krankenhaus. Mit lieben Worten pflegt sie es gesund. Der Professor gibt auf. Der Hausmeister ist freundlich. Frau Lizzis Schlusssatz: "Ein Vamperl ist nicht genug. Solche wie dich brauchen wir viele!"</p></div>
+
+  <!-- AB18: Berichtigen -->
+  <div class="card"><h3><span class="badge badge-ue">📝 AB24</span> Fehler finden und berichtigen</h3>
+  <div class="uebung"><p style="background:#2d1b4e;padding:0.4rem;border-radius:0.4rem;font-size:0.85rem;">"Frau Lizzi holt das Vamperl aus dem Supermarkt. Sie pflegt es mit bösen Wörtern. Der Professor jubelt."</p>
+  <p><strong>Finde die 3 Fehler und schreibe den Satz richtig:</strong></p>
+  <textarea class="input-field" rows="2" style="max-width:100%;height:55px;" placeholder="Richtiger Satz:"></textarea>
+  <button class="btn btn-sm" onclick="chkBerichtigen()">✔️ Prüfen</button><div class="feedback" id="ber_fb"></div></div></div>
+
+  <!-- AB19: Buch weiterschreiben -->
+  <div class="card"><h3><span class="badge badge-ue">✏️ AB25</span> Das Buch weiterschreiben</h3>
+  <div class="uebung"><p><strong>Was könnte am nächsten Tag passieren?</strong></p>
+  <textarea class="input-field" rows="3" style="max-width:100%;height:70px;" placeholder="Am nächsten Tag..."></textarea></div></div>
+
+  <!-- Schlusssatz interpretieren -->
+  <div class="card"><h3><span class="badge badge-ue">💬 AB26</span> Was meint Frau Lizzi?</h3>
+  <p><em>"Ein Vamperl ist nicht genug. Solche wie dich brauchen wir viele."</em></p>
+  <p><strong>Was will sie damit sagen?</strong></p>
+  <textarea class="input-field" rows="2" style="max-width:100%;height:60px;" placeholder="Ich glaube, sie meint..."></textarea></div>
+</section>
+
+<!-- ===== ABSCHLUSSQUIZ (AB20) ===== -->
+<section class="chapter" id="chapter-12">
+  <div class="card" style="text-align:center;"><h2>🏆 Abschluss-Quiz</h2>
+  <p style="font-size:2rem;margin:0.5rem 0;">🧛⭐🦇</p>
+  <p>Teste dein Wissen zum ganzen Buch!</p></div>
+
+  <div class="card"><h3>1. Wo findet Frau Lizzi das Vamperl?</h3>
+  <div id="fq1"><label class="mc-option" onclick="mc(this,0,'fq1')">Im Wäschekorb</label>
+  <label class="mc-option" onclick="mc(this,1,'fq1')">Im Spinnennetz</label>
+  <label class="mc-option" onclick="mc(this,2,'fq1')">Im Kühlschrank</label></div>
+  <button class="btn" onclick="chkMC('fq1',1)">✔️</button><div class="feedback" id="fq1_fb"></div></div>
+
+  <div class="card"><h3>2. Wovon ernährt sich das Vamperl?</h3>
+  <div id="fq2"><label class="mc-option" onclick="mc(this,0,'fq2')">Von Blut</label>
+  <label class="mc-option" onclick="mc(this,1,'fq2')">Warmer Milch mit Zucker</label>
+  <label class="mc-option" onclick="mc(this,2,'fq2')">Von Kuchen</label></div>
+  <button class="btn" onclick="chkMC('fq2',1)">✔️</button><div class="feedback" id="fq2_fb"></div></div>
+
+  <div class="card"><h3>3. Wohin sticht das Vamperl die bösen Menschen?</h3>
+  <div id="fq3"><label class="mc-option" onclick="mc(this,0,'fq3')">In den Arm</label>
+  <label class="mc-option" onclick="mc(this,1,'fq3')">In die Galle</label>
+  <label class="mc-option" onclick="mc(this,2,'fq3')">In den Fuß</label></div>
+  <button class="btn" onclick="chkMC('fq3',1)">✔️</button><div class="feedback" id="fq3_fb"></div></div>
+
+  <div class="card"><h3>4. Wie heißt die Nachbarin mit dem Foxterrier?</h3>
+  <div id="fq4"><label class="mc-option" onclick="mc(this,0,'fq4')">Frau Maringer</label>
+  <label class="mc-option" onclick="mc(this,1,'fq4')">Frau Anna</label>
+  <label class="mc-option" onclick="mc(this,2,'fq4')">Frau Müller</label></div>
+  <button class="btn" onclick="chkMC('fq4',1)">✔️</button><div class="feedback" id="fq4_fb"></div></div>
+
+  <div class="card"><h3>5. Warum wird das Vamperl krank?</h3>
+  <div id="fq5"><label class="mc-option" onclick="mc(this,0,'fq5')">Zu viel Gift aufgesogen</label>
+  <label class="mc-option" onclick="mc(this,1,'fq5')">Zu wenig Schlaf</label>
+  <label class="mc-option" onclick="mc(this,2,'fq5')">Keine Milch mehr</label></div>
+  <button class="btn" onclick="chkMC('fq5',0)">✔️</button><div class="feedback" id="fq5_fb"></div></div>
+
+  <div class="card"><h3>6. Was sagt Frau Lizzi am Ende?</h3>
+  <div id="fq6"><label class="mc-option" onclick="mc(this,0,'fq6')">"Vamperl, du bist ein Schatz!"</label>
+  <label class="mc-option" onclick="mc(this,1,'fq6')">"Ein Vamperl ist nicht genug!"</label>
+  <label class="mc-option" onclick="mc(this,2,'fq6')">"Jetzt wird alles gut!"</label></div>
+  <button class="btn" onclick="chkMC('fq6',1)">✔️</button><div class="feedback" id="fq6_fb"></div></div>
+
+  <div class="card" style="text-align:center;"><h3>🦇 Geschafft! 🦇</h3>
+  <p style="font-size:1.3rem;">🧛📚⭐</p>
+  <p>Du kennst dich jetzt richtig gut aus mit dem Vamperl!</p>
+  <p style="font-size:0.9rem;opacity:0.7;">Tipp: Gestalte ein eigenes Deckblatt für dein Lesebegleitheft!</p></div>
+</section>
+
+<!-- ===== LERNFORTSCHRITT ===== -->
+<section class="chapter" id="chapter-13">
+  <div class="card progress-page">
+    <div class="progress-heading">
+      <div>
+        <span class="progress-kicker">Dein Lernfortschritt</span>
+        <h2>So sicher bist du schon</h2>
+        <p>Der äußere grüne Ring zeigt dein Ergebnis im Abschlussquiz. Der innere orange Ring zeigt, wie viele deiner bearbeiteten Übungsaufgaben richtig waren.</p>
+      </div>
+      <div class="file-actions">
+        <button class="btn" type="button" onclick="exportState()">⬇ Export</button>
+        <button class="btn import-btn" type="button" onclick="document.getElementById('importFile').click()">⬆ Import</button>
+      </div>
+    </div>
+    <div class="progress-legend">
+      <span><i class="legend-dot" style="background:var(--progress-green)"></i>Äußerer Ring: Abschlusstest</span>
+      <span><i class="legend-dot" style="background:var(--progress-orange)"></i>Innerer Ring: bearbeitete Übungen</span>
+    </div>
+    <div class="progress-dashboard">
+      <article class="progress-card">
+        <h3>Das Vamperl</h3>
+        <div class="double-ring" id="doubleRing" role="img" aria-label="Lernfortschritt">
+          <div class="inner-ring"><div class="ring-center"><strong id="ringTestText">0%</strong><small>Test</small></div></div>
+        </div>
+        <p class="stat-line"><strong>Übungen:</strong> <span id="exerciseStats">0 % (0/0)</span></p>
+        <p class="stat-line"><strong>Test:</strong> <span id="testStats">noch nicht bearbeitet</span></p>
+        <p class="stars">⭐ <span id="starCount">0</span> Lernsterne</p>
+      </article>
+      <article class="progress-card feedback-panel">
+        <h3>Dein persönliches Feedback</h3>
+        <p class="feedback-message" id="feedbackMessage">Beginne mit dem ersten Kapitel. Jede richtig gelöste Aufgabe bringt dich deinem Ziel näher.</p>
+        <div class="feedback-meter" aria-hidden="true"><span id="feedbackMeter"></span></div>
+        <p class="stat-line" style="margin-top:1rem"><strong>Gesamtfortschritt:</strong> <span id="overallStats">0 %</span></p>
+      </article>
+    </div>
+  </div>
+</section>
+
+</main>
+<footer class="footer">Deutsch Phase 3: „Das Vamperl“ von Renate Welsh · Autor: Christian Schwend</footer>
+
+<script>
+// ===== Navigation =====
+document.querySelectorAll('.nav-tabs button').forEach(b=>{
+  b.addEventListener('click', function(){
+    document.querySelectorAll('.nav-tabs button').forEach(x=>x.classList.remove('active'));
+    this.classList.add('active');
+    document.querySelectorAll('.chapter').forEach(c=>c.classList.remove('active'));
+    document.getElementById('chapter-'+this.dataset.chapter).classList.add('active');
+  });
+});
+function goChapter(chapter){
+  const button=document.querySelector(`.nav-tabs button[data-chapter="${chapter}"]`);
+  if(button){button.click();window.scrollTo({top:0,behavior:'smooth'});}
+}
+
+// ===== Hilfen =====
+function fb(id,ok,msg){
+  const e=document.getElementById(id);
+  e.className='feedback '+(ok?'richtig':'falsch');
+  e.textContent=ok?'⭐ '+msg:'❌ '+msg;
+}
+function gv(id){return document.getElementById(id).value.toLowerCase().trim();}
+
+// ===== Richtig/Falsch =====
+const rfS={1:0,3:0,5:0};
+function rf(ch,idx,ans){
+  const c={1:[false,true,true],3:[false,true,false],5:[true,false,true]};
+  const e=document.getElementById('rf'+ch+'_'+idx);
+  if(ans===c[ch][idx]){
+    fb('rf'+ch+'_'+idx,true,'Richtig!');
+    if(!e.dataset.d){e.dataset.d='1';rfS[ch]++;}
+  } else fb('rf'+ch+'_'+idx,false,'Leider falsch.');
+  const se=document.getElementById('s'+ch);
+  if(se) se.textContent='⭐ '+rfS[ch]+'/3';
+  upP();
+}
+
+// ===== Wahr/Falsch =====
+let wfS=0;
+function wf(ch,idx,ans){
+  const c=[true,false,true];
+  const e=document.getElementById('wf'+ch+'_'+idx);
+  if(ans===c[idx]){
+    fb('wf'+ch+'_'+idx,true,'Wahr!');
+    if(!e.dataset.d){e.dataset.d='1';wfS++;}
+  } else fb('wf'+ch+'_'+idx,false,'Falsch.');
+  document.getElementById('s6').textContent='⭐ '+wfS+'/3';
+  upP();
+}
+
+// ===== MC =====
+function mc(el,idx,gr){
+  document.querySelectorAll('#'+gr+' .mc-option').forEach(o=>{o.classList.remove('selected');o.dataset.s='';});
+  el.classList.add('selected');el.dataset.s=idx;
+}
+function chkMC(gr,corr){
+  const s=document.querySelector('#'+gr+' .mc-option.selected');
+  const f=document.getElementById(gr+'_fb');
+  if(!s){fb(gr+'_fb',false,'Bitte wähle!');return;}
+  const v=parseInt(s.dataset.s);
+  document.querySelectorAll('#'+gr+' .mc-option').forEach(o=>o.classList.remove('selected'));
+  if(v===corr){s.classList.add('correct');fb(gr+'_fb',true,'Richtig!');}
+  else{s.classList.add('incorrect');fb(gr+'_fb',false,'Falsch.');document.querySelectorAll('#'+gr+' .mc-option')[corr].classList.add('correct');}
+  upP();
+}
+
+// ===== Steckbrief =====
+function chkSteckbrief(){
+  let p=0;
+  const a=parseInt(gv('st_alter'));
+  if(a>60&&a<75)p++;
+  if(gv('st_wohn').length>5)p++;
+  if(gv('st_hobby').length>3)p++;
+  const c=gv('st_char').split(',').filter(x=>x.trim().length>2).length;
+  if(c>=2)p++;
+  fb('st_fb',p>=2,'Info: 67 J., allein, singt, fürsorglich.');
+  upP();
+}
+
+// ===== Gefühle =====
+function chkGefuehle(){
+  const lz=document.getElementById('lizziGef').querySelectorAll('.tag');
+  const an=document.getElementById('annaGef').querySelectorAll('.tag');
+  let ok=true;
+  lz.forEach(t=>{if(t.dataset&&t.dataset.ziel!=='lizzi')ok=false;});
+  an.forEach(t=>{if(t.dataset&&t.dataset.ziel!=='anna')ok=false;});
+  const t=lz.length+an.length;
+  if(t<6){fb('gef_fb',false,'Ziehe alle 6 Begriffe!');return;}
+  fb('gef_fb',ok,'Sehr gut!');
+  upP();
+}
+
+// ===== Zitate =====
+function chkZitat1(){
+  const t=gv('zitat1');
+  fb('zit1_fb',t.length>10,'Gute Erklärung! Hinweis: Sie meint, sie hat den Vampir entsorgt – aber sie hat ihn nicht umgebracht.');
+  upP();
+}
+function chkZitat2(){
+  const t=gv('zitat2');
+  fb('zit2_fb',t.length>10,'Gut! Hinweis: Frau Lizzi findet das Vamperl schön, auch wenn es anders aussieht.');
+  upP();
+}
+
+// ===== Zuordnung Kap2 =====
+function chkZuord2(){
+  const z=document.querySelectorAll('#chapter-2 .drop-zone');
+  let g=0;z.forEach(x=>g+=x.querySelectorAll('.tag,.drag-item').length);
+  fb('zuo2_fb',g>=4,g+'/4 zugeordnet.');
+  upP();
+}
+
+// ===== Entwicklung =====
+function chkEntw(){
+  const w1=gv('entw1'),w2=gv('entw2'),w3=gv('entw3');
+  let p=0;
+  if(w1.includes('schmuckschachtel')||w1.includes('schmuck'))p++;
+  if(w2.includes('knopfschachtel')||w2.includes('knopf'))p++;
+  if(w3.includes('nähkorb')||w3.includes('näh'))p++;
+  fb('entw_fb',p>=2,p+'/3. Lösung: Schmuckschachtel – Knopfschachtel – Nähkorb');
+  upP();
+}
+
+// ===== Lied =====
+function chkLied(){
+  fb('lied_fb',gv('lied1')==='milch'&&gv('lied2')==='blut'&&gv('lied3')==='gut','Milch – Blut – gut!');
+  upP();
+}
+
+// ===== Reim =====
+function chkReim(){
+  fb('reim_fb',gv('reim1')==='rum'&&gv('reim2')==='dumm','Ri-ra-rum, der Dieter, der ist dumm!');
+  upP();
+}
+
+// ===== Sortierung =====
+let sort4=[2,1,0,3];
+function mvSort(idx,ch,dir){
+  const a=sort4;const ni=idx+dir;
+  if(ni<0||ni>=a.length)return;
+  [a[idx],a[ni]]=[a[ni],a[idx]];
+  document.getElementById('s4_0').textContent='?';
+  document.getElementById('s4_1').textContent='?';
+  document.getElementById('s4_2').textContent='?';
+  document.getElementById('s4_3').textContent='?';
+  // just show current order visually
+  sort4.forEach((v,i)=>document.getElementById('s4_'+i).textContent=(i+1));
+}
+function chkSort(ch){
+  const c=[2,1,0,3];
+  fb('sort4_fb',JSON.stringify(sort4)===JSON.stringify(c),'Richtige Reihenfolge: 1.Kinder ärgern 2.Vamperl sticht 3.Karin lädt ein 4.Frau Lizzi schimpft');
+  upP();
+}
+
+// ===== Gedicht =====
+function chkGedicht(){
+  let p=0;
+  // 4 Verse
+  if(gv('gedVers')==='4'||gv('gedVers')==='vier')p++;
+  if(gv('gedReim')==='munker'||gv('gedReim')==='runter'||gv('gedReim').includes('unte'))p++;
+  if(gv('gedReim2')==='ein')p++;
+  if(gv('gedBlitz')==='spitzt'||gv('gedBlitz')==='nichts')p++;
+  fb('ged_fb',p>=2,p+'/4 richtig.');
+  upP();
+}
+
+// ===== Lückentext Kap9 =====
+function chkLuecke9(){
+  let p=0;
+  if(gv('lk9_1').includes('honig'))p++;
+  if(gv('lk9_2').includes('gemein')||gv('lk9_2').includes('bös'))p++;
+  if(gv('lk9_3').includes('ohnmächtig')||gv('lk9_3').includes('krank'))p++;
+  if(gv('lk9_4').includes('entscheidung'))p++;
+  fb('lk9_fb',p>=2,p+'/4. Lösung: Honig – gemeinen/bösen – ohnmächtig – Entscheidung');
+  upP();
+}
+
+// ===== Berichtigen =====
+function chkBerichtigen(){
+  const ta=document.querySelector('#chapter-11 textarea');
+  const t=ta?ta.value.toLowerCase():'';
+  const ok=t.includes('krankenhaus')&&(t.includes('gut')||t.includes('lieb'))&&t.includes('aufgibt');
+  fb('ber_fb',ok||t.length>20,'Richtig: Krankenhaus, gute Wörter, Professor gibt auf.');
+  upP();
+}
+
+// ===== Wort-Sort gut/böse =====
+function chkWordSort(){
+  const g=document.getElementById('goodWords').querySelectorAll('.tag');
+  const b=document.getElementById('badWords').querySelectorAll('.tag');
+  let ok=true;
+  g.forEach(i=>{if(i.dataset&&i.dataset.cat!=='good')ok=false;});
+  b.forEach(i=>{if(i.dataset&&i.dataset.cat!=='bad')ok=false;});
+  if(g.length+b.length<6){fb('ws_fb',false,'Alle 6 Wörter zuordnen!');return;}
+  fb('ws_fb',ok,'Super!');
+  upP();
+}
+
+// ===== Gift/Galle =====
+function chkGalle(){
+  fb('galle_fb',gv('galle')==='gift'||gv('galle')==='giftige','Gift!');
+  upP();
+}
+
+// ===== Drag & Drop allgemein =====
+document.querySelectorAll('.drag-item[draggable]').forEach(item=>{
+  item.addEventListener('dragstart',function(e){
+    e.dataTransfer.setData('text/plain',this.textContent);
+    e.dataTransfer.setData('text/cat',this.dataset.cat||'');
+    e.dataTransfer.setData('text/pair',this.dataset.pair||'');
+    e.dataTransfer.setData('text/ziel',this.dataset.ziel||'');
+  });
+});
+document.querySelectorAll('.drop-zone').forEach(zone=>{
+  zone.addEventListener('dragover',e=>e.preventDefault());
+  zone.addEventListener('dragenter',e=>e.target.classList.add('drag-over'));
+  zone.addEventListener('dragleave',e=>e.target.classList.remove('drag-over'));
+  zone.addEventListener('drop',function(e){
+    e.preventDefault();this.classList.remove('drag-over');
+    const text=e.dataTransfer.getData('text/plain');
+    const cat=e.dataTransfer.getData('text/cat');
+    const pair=e.dataTransfer.getData('text/pair');
+    const ziel=e.dataTransfer.getData('text/ziel');
+    const el=document.createElement('span');
+    el.className='tag';el.textContent=text;
+    el.dataset.cat=cat;el.dataset.pair=pair;el.dataset.ziel=ziel;
+    this.appendChild(el);
+    document.querySelectorAll('.drag-item').forEach(o=>{
+      if(o.textContent.trim()===text&&!o.classList.contains('placed')){
+        o.classList.add('placed');o.draggable=false;
+      }
+    });
+  });
+});
+
+// ===== Progress =====
+const STORAGE_KEY='asw-vamperl-v2';
+function saveFields(){
+  const fields={};
+  document.querySelectorAll('input:not([type=file]),textarea').forEach((el,i)=>fields[el.id||('field-'+i)]=el.value);
+  const done=[...document.querySelectorAll('.feedback.richtig')].map(el=>el.id);
+  const chapter=document.querySelector('.nav-tabs button.active')?.dataset.chapter||'0';
+  localStorage.setItem(STORAGE_KEY,JSON.stringify({version:2,savedAt:new Date().toISOString(),fields,done,chapter}));
+}
+function completionData(){
+  const checks=[...document.querySelectorAll('.feedback')];
+  const writing=[...document.querySelectorAll('textarea,input.input-field')];
+  const doneChecks=checks.filter(el=>el.classList.contains('richtig')).length;
+  const doneWriting=writing.filter(el=>el.value.trim().length>=3).length;
+  const total=checks.length+writing.length;
+  const quiz=checks.filter(el=>/^fq\d+_fb$/.test(el.id));
+  const exercises=checks.filter(el=>!/^fq\d+_fb$/.test(el.id));
+  const quizCorrect=quiz.filter(el=>el.classList.contains('richtig')).length;
+  const quizAttempted=quiz.filter(el=>el.classList.contains('richtig')||el.classList.contains('falsch')).length;
+  const exerciseCorrect=exercises.filter(el=>el.classList.contains('richtig')).length;
+  const exerciseAttempted=exercises.filter(el=>el.classList.contains('richtig')||el.classList.contains('falsch')).length;
+  return {
+    done:doneChecks+doneWriting,total,pct:total?Math.round((doneChecks+doneWriting)/total*100):0,
+    quizCorrect,quizTotal:quiz.length,quizAttempted,quizPct:quiz.length?Math.round(quizCorrect/quiz.length*100):0,
+    exerciseCorrect,exerciseAttempted,exercisePct:exerciseAttempted?Math.round(exerciseCorrect/exerciseAttempted*100):0
+  };
+}
+function upP(){
+  const p=completionData();
+  [['pGlobal','pText'],['pToolbar','pToolbarText']].forEach(([bar,label])=>{
+    const b=document.getElementById(bar),l=document.getElementById(label);
+    if(b)b.style.width=p.pct+'%'; if(l)l.textContent=p.pct+' %';
+    b?.parentElement?.setAttribute('aria-valuenow',p.pct);
+  });
+  const ring=document.getElementById('doubleRing');
+  if(ring){
+    ring.style.setProperty('--test',(p.quizPct*3.6)+'deg');
+    ring.style.setProperty('--exercise',(p.exercisePct*3.6)+'deg');
+    ring.setAttribute('aria-label',`Abschlusstest ${p.quizPct} Prozent, Übungen ${p.exercisePct} Prozent`);
+  }
+  const ringText=document.getElementById('ringTestText');if(ringText)ringText.textContent=p.quizPct+'%';
+  const exerciseStats=document.getElementById('exerciseStats');if(exerciseStats)exerciseStats.textContent=`${p.exercisePct} % (${p.exerciseCorrect}/${p.exerciseAttempted})`;
+  const testStats=document.getElementById('testStats');if(testStats)testStats.textContent=p.quizAttempted?`${p.quizPct} % (${p.quizCorrect}/${p.quizTotal})`:'noch nicht bearbeitet';
+  const stars=Math.min(10,Math.floor((p.exerciseCorrect+p.quizCorrect)/3));
+  const starCount=document.getElementById('starCount');if(starCount)starCount.textContent=stars;
+  const overallStats=document.getElementById('overallStats');if(overallStats)overallStats.textContent=p.pct+' %';
+  const meter=document.getElementById('feedbackMeter');if(meter)meter.style.width=p.pct+'%';
+  const message=document.getElementById('feedbackMessage');
+  if(message){
+    message.textContent=p.pct===0?'Beginne mit dem ersten Kapitel. Jede richtig gelöste Aufgabe bringt dich deinem Ziel näher.':
+      p.pct<25?'Ein guter Anfang! Lies die Rückmeldungen genau und versuche falsche Antworten noch einmal.':
+      p.pct<50?'Du kennst Frau Lizzi und das Vamperl schon immer besser. Bleib dran!':
+      p.pct<75?'Stark gearbeitet! Bei schwierigen Aufgaben hilft ein erneuter Blick ins Buch.':
+      p.pct<100?'Fast geschafft! Prüfe noch offene Kapitel und wage dich an das Abschlussquiz.':
+      'Großartig – du hast das gesamte Lernpaket vollständig bearbeitet!';
+  }
+  saveFields();
+}
+function showToast(message){const t=document.getElementById('toast');t.textContent=message;t.style.display='block';setTimeout(()=>t.style.display='none',2600);}
+function exportState(){
+  saveFields();
+  const raw=localStorage.getItem(STORAGE_KEY)||'{}';
+  const blob=new Blob([raw],{type:'application/json'}),a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);a.download='vamperl-lernstand-'+new Date().toISOString().slice(0,10)+'.json';a.click();URL.revokeObjectURL(a.href);
+  showToast('Lernstand wurde exportiert.');
+}
+function applyState(data){
+  if(!data||data.version!==2||typeof data.fields!=='object')throw new Error('Unbekanntes Dateiformat');
+  const fields=[...document.querySelectorAll('input:not([type=file]),textarea')];
+  fields.forEach((el,i)=>{const key=el.id||('field-'+i);if(Object.hasOwn(data.fields,key))el.value=data.fields[key];});
+  (data.done||[]).forEach(id=>{const el=document.getElementById(id);if(el){el.className='feedback richtig';el.textContent='⭐ Bereits bearbeitet';}});
+  if(data.chapter)document.querySelector(`.nav-tabs button[data-chapter="${data.chapter}"]`)?.click();
+  upP();
+}
+function importState(event){
+  const file=event.target.files?.[0];if(!file)return;
+  const reader=new FileReader();reader.onload=()=>{try{const data=JSON.parse(reader.result);applyState(data);localStorage.setItem(STORAGE_KEY,JSON.stringify(data));showToast('Lernstand erfolgreich importiert.');}catch(e){alert('Die Datei konnte nicht importiert werden: '+e.message);}event.target.value='';};reader.readAsText(file);
+}
+function restoreState(){try{const raw=localStorage.getItem(STORAGE_KEY);if(raw)applyState(JSON.parse(raw));}catch(e){console.warn('Lernstand konnte nicht geladen werden.',e);}}
+
+// Automatisch lokal speichern
+document.querySelectorAll('input:not([type=file]),textarea').forEach(el=>el.addEventListener('input',upP));
+document.addEventListener('click',e=>{if(e.target.closest('button,.mc-option'))setTimeout(upP,0);});
+// Init
+restoreState();
+upP();
+</script>
+</body>
+</html>
