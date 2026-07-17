@@ -135,7 +135,7 @@
   .welcome-layout .story-image { margin:0; }
   .figure-grid { display:grid; grid-template-columns:repeat(6,minmax(105px,1fr)); gap:.65rem; }
   .figure-card { min-width:0; padding:.75rem .4rem .7rem; overflow:hidden; background:#fff; }
-  .figure-portrait { width:112px; height:112px; margin:0 auto .65rem; border-radius:50%; background-image:url('vamperl-figuren-v2.png'); background-repeat:no-repeat; background-size:430% auto; border:4px solid #fff; outline:2px solid #d8e3eb; box-shadow:0 5px 14px #183b5626; }
+  .figure-portrait { width:112px; height:112px; margin:0 auto .65rem; border-radius:50%; background-image:url('vamperl-figuren-gruen.png'); background-repeat:no-repeat; background-size:430% auto; border:4px solid #fff; outline:2px solid #d8e3eb; box-shadow:0 5px 14px #183b5626; }
   .p-lizzi{background-position:13% 23%}.p-vamperl{background-position:30% 59%}.p-anna{background-position:45% 6%}.p-maringer{background-position:73% 3%}.p-flocki{background-position:66% 83%}.p-hannes{background-position:95% 18%}
   .progress-page { padding:clamp(1rem,3vw,2.25rem); }
   .progress-heading { display:flex; justify-content:space-between; align-items:flex-start; gap:1rem; flex-wrap:wrap; }
@@ -174,6 +174,63 @@
   @media(max-width:800px){.figure-grid{grid-template-columns:repeat(3,1fr)}.progress-dashboard{grid-template-columns:1fr}.header-icon{display:none}.welcome-layout{grid-template-columns:1fr}.welcome-layout .story-image{max-width:520px;margin:auto}}
   @media(max-width:590px){.chapter-progress-grid{grid-template-columns:1fr}}
   @media(max-width:520px){.figure-grid{grid-template-columns:repeat(2,1fr)}.header-actions{gap:.35rem}.overview-btn{padding:.55rem}.asw-logo{width:42px;height:42px}.double-ring{width:205px;height:205px}.inner-ring{width:155px;height:155px}.figure-portrait{width:96px;height:96px}}
+
+  /* Gut sichtbare Kopfzeile und vertikaler Lernpfad */
+  .header { position:sticky; top:0; z-index:220; min-height:86px; padding:.85rem 1.3rem; background:linear-gradient(110deg,#940d24 0%,#b20f2d 58%,#9d0c25 100%); }
+  .header h1 { font-size:clamp(1.15rem,2vw,1.55rem); letter-spacing:.005em; }
+  .header p { font-size:.9rem; margin-top:.25rem; }
+  .header-actions .asw-logo,.header-actions .header-icon { width:54px; height:54px; }
+  .overview-btn { min-height:52px; font-size:.95rem; padding:.7rem 1.15rem; }
+  .progress-strip { position:sticky; top:86px; z-index:205; min-height:102px; padding:.45rem 1rem .45rem calc(238px + 1rem); display:flex; align-items:center; gap:1rem; background:#fff; border-bottom:1px solid #d9e2e9; box-shadow:0 3px 12px #18354d12; }
+  .progress-strip-title { flex:0 0 auto; color:#173651; font-size:.78rem; font-weight:900; line-height:1.2; }
+  .progress-strip-title small { display:block; margin-top:.15rem; color:#6a7f90; font-size:.62rem; font-weight:650; }
+  .progress-mini-grid { min-width:0; display:flex; align-items:center; gap:.7rem; overflow-x:auto; padding:.15rem .15rem .25rem; scrollbar-width:thin; }
+  .mini-progress { flex:0 0 auto; min-width:160px; padding:.32rem .65rem .32rem .38rem; display:flex; align-items:center; gap:.55rem; border:1px solid #cfdee8; border-radius:15px; background:#fbfdfe; }
+  .mini-progress .double-ring { width:68px; height:68px; flex:0 0 68px; margin:0; }
+  .mini-progress .double-ring::before { inset:6px; }
+  .mini-progress .inner-ring { width:50px; height:50px; }
+  .mini-progress .inner-ring::before { inset:6px; }
+  .mini-progress .ring-center strong { font-size:.75rem; }
+  .mini-progress .ring-center small { display:none; }
+  .mini-progress-label { color:#194d80; font-size:.75rem; font-weight:850; line-height:1.2; }
+  .mini-progress-label small { display:block; margin-top:.2rem; color:#6a7f90; font-size:.6rem; font-weight:650; }
+  .nav-tabs { position:fixed; z-index:180; top:188px; left:0; bottom:0; width:238px; padding:1rem .8rem 1.4rem; display:flex; flex-direction:column; flex-wrap:nowrap; justify-content:flex-start; align-items:stretch; gap:.42rem; overflow-x:hidden; overflow-y:auto; background:linear-gradient(180deg,#fff8f9,#f6f8fb); border-right:1px solid #d9e2e9; border-bottom:0; box-shadow:5px 0 18px #18354d14; scrollbar-width:thin; }
+  .nav-tabs::before { content:'Lernpfad · Kapitel'; display:block; margin:0 .2rem .45rem; color:#8e1026; font-size:.78rem; font-weight:900; letter-spacing:.08em; text-transform:uppercase; }
+  .nav-tabs button { width:100%; min-height:42px; padding:.62rem .75rem; border-radius:10px; display:flex; align-items:center; justify-content:flex-start; text-align:left; font-size:.82rem; line-height:1.2; font-weight:750; background:#fff; border:1px solid #cfdde7; box-shadow:0 2px 5px #1739540b; }
+  .nav-tabs button:hover { background:#fff0f3; border-color:#c96476; transform:translateX(2px); }
+  .nav-tabs button.active { position:relative; background:var(--header-red); border-color:var(--header-red); color:#fff; box-shadow:0 5px 12px #8e102632; }
+  .nav-tabs button.active::before { content:''; position:absolute; left:-.8rem; top:7px; bottom:7px; width:5px; border-radius:0 4px 4px 0; background:#f5c542; }
+  .nav-file-tools { width:100%; margin-top:auto; padding-top:.8rem; display:grid; grid-template-columns:1fr 1fr; gap:.42rem; border-top:1px solid #d9e2e9; }
+  .nav-file-tools .nav-tool { min-height:39px; padding:.52rem .55rem; justify-content:center; font-size:.76rem; color:#fff; background:#246eb3; border-color:#246eb3; }
+  .nav-file-tools .nav-tool:hover { color:#fff; background:#175a96; border-color:#175a96; }
+  .nav-file-tools .import-tool { background:#128646; border-color:#128646; }
+  .nav-file-tools .import-tool:hover { background:#0c6d38; border-color:#0c6d38; }
+  .nav-file-tools .reset-tool { grid-column:1/-1; background:#fff; color:#9b142b; border-color:#c96576; }
+  .nav-file-tools .reset-tool:hover { background:#fff0f3; color:#7e0e22; border-color:#b53e53; }
+  .main { width:auto; max-width:none; margin:0 0 0 238px; padding:1.45rem clamp(1rem,3vw,3rem); }
+  .main > .chapter { max-width:1180px; margin:0 auto; }
+  .footer { margin-left:238px; }
+  @media(max-width:900px){
+    .header { position:relative; min-height:76px; padding:.7rem .8rem; }
+    .header h1 { font-size:1.05rem; }
+    .header-actions .asw-logo,.header-actions .header-icon { width:46px; height:46px; }
+    .overview-btn { min-height:44px; padding:.55rem .75rem; }
+    .progress-strip { position:relative; top:auto; min-height:92px; padding:.4rem .65rem; gap:.65rem; overflow:hidden; }
+    .progress-strip-title { display:none; }
+    .progress-mini-grid { width:100%; }
+    .mini-progress { min-width:146px; }
+    .mini-progress .double-ring { width:60px; height:60px; flex-basis:60px; }
+    .mini-progress .inner-ring { width:44px; height:44px; }
+    .nav-tabs { position:sticky; top:0; bottom:auto; width:100%; height:auto; padding:.55rem .65rem; flex-direction:row; align-items:center; gap:.38rem; overflow-x:auto; overflow-y:hidden; border-right:0; border-bottom:1px solid #d9e2e9; box-shadow:0 3px 12px #18354d14; }
+    .nav-tabs::before { content:'Lernpfad'; flex:0 0 auto; margin:0 .35rem 0 0; }
+    .nav-tabs button { width:auto; min-height:38px; flex:0 0 auto; padding:.5rem .7rem; }
+    .nav-tabs button:hover { transform:none; }
+    .nav-tabs button.active::before { display:none; }
+    .nav-file-tools { width:auto; margin:0 0 0 .25rem; padding:0 0 0 .5rem; display:flex; flex:0 0 auto; border-top:0; border-left:1px solid #d9e2e9; }
+    .nav-file-tools .reset-tool { grid-column:auto; }
+    .main { margin-left:0; padding:1rem .75rem; }
+    .footer { margin-left:0; }
+  }
 </style>
 </head>
 <body>
@@ -188,6 +245,15 @@
     </div>
   </div>
 </header>
+<div class="progress-strip" aria-label="Direkt sichtbarer Lernfortschritt">
+  <div class="progress-strip-title">Lernfortschritt<small>Grün: richtig · Orange: bearbeitet</small></div>
+  <div class="progress-mini-grid">
+    <div class="mini-progress chapter-progress" data-chapters="1,2,3"><div class="double-ring group-ring"><div class="inner-ring"><div class="ring-center"><strong class="group-score">0%</strong></div></div></div><div class="mini-progress-label">Kapitel 1–3<small class="group-completion">0 % bearbeitet</small></div></div>
+    <div class="mini-progress chapter-progress" data-chapters="4,5,6"><div class="double-ring group-ring"><div class="inner-ring"><div class="ring-center"><strong class="group-score">0%</strong></div></div></div><div class="mini-progress-label">Kapitel 4–6<small class="group-completion">0 % bearbeitet</small></div></div>
+    <div class="mini-progress chapter-progress" data-chapters="7,8,9"><div class="double-ring group-ring"><div class="inner-ring"><div class="ring-center"><strong class="group-score">0%</strong></div></div></div><div class="mini-progress-label">Kapitel 7–9<small class="group-completion">0 % bearbeitet</small></div></div>
+    <div class="mini-progress chapter-progress" data-chapters="10,11,12"><div class="double-ring group-ring"><div class="inner-ring"><div class="ring-center"><strong class="group-score">0%</strong></div></div></div><div class="mini-progress-label">Kap. 10–11 &amp; Quiz<small class="group-completion">0 % bearbeitet</small></div></div>
+  </div>
+</div>
 <section class="tool-row" aria-label="Lernstand und Dateiaktionen">
   <div class="progress-wrap">
     <div class="progress-label"><span>Mein Lernfortschritt</span><span id="pToolbarText">0 %</span></div>
@@ -195,11 +261,11 @@
   </div>
   <button class="btn btn-sm" type="button" onclick="exportState()">⬇ Exportieren</button>
   <button class="btn btn-secondary btn-sm" type="button" onclick="document.getElementById('importFile').click()">⬆ Importieren</button>
-  <input class="sr-only" id="importFile" type="file" accept="application/json,.json" onchange="importState(event)">
 </section>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
+<input class="sr-only" id="importFile" type="file" accept="application/json,.json" onchange="importState(event)">
 
-<nav class="nav-tabs" id="navTabs">
+<nav class="nav-tabs" id="navTabs" aria-label="Lernpfad durch die Kapitel">
   <button class="active" data-chapter="0">📖 Start</button>
   <button data-chapter="1">1 · Spinnennetz</button>
   <button data-chapter="2">2 · Kaffee</button>
@@ -214,6 +280,11 @@
   <button data-chapter="11">11 · Ende</button>
   <button data-chapter="12">🏆 Quiz</button>
   <button data-chapter="13">📊 Fortschritt</button>
+  <div class="nav-file-tools" aria-label="Lernstand verwalten">
+    <button class="nav-tool" type="button" onclick="exportState()">⬇ Export</button>
+    <button class="nav-tool import-tool" type="button" onclick="document.getElementById('importFile').click()">⬆ Import</button>
+    <button class="nav-tool reset-tool" type="button" onclick="resetState()">↺ Zurücksetzen</button>
+  </div>
 </nav>
 
 <main class="main">
@@ -227,7 +298,7 @@
     <figure class="story-image"><img src="vamperl-titelbild.jpg" alt="Das kleine Vamperl sitzt mit einer Milchflasche in einem Korb; Frau Lizzi steht überrascht hinter ihm"><figcaption>Das Vamperl und Frau Lizzi</figcaption></figure>
   </div>
   <div class="card"><h3>👥 Figuren</h3>
-  <img class="character-hero" src="vamperl-figuren-v2.png" alt="Neu illustrierte Figuren: Frau Lizzi, Vamperl, Frau Anna, Frau Maringer, Flocki und Hannes im Innenhof">
+  <img class="character-hero" src="vamperl-figuren-gruen.png" alt="Neu illustrierte Figuren: Frau Lizzi, das grünfarbene Vamperl, Frau Anna, Frau Maringer, Flocki und Hannes im Innenhof">
   <div class="figure-grid">
     <div class="figure-card"><div class="figure-portrait p-lizzi"></div><strong>Frau Lizzi</strong><small>67 J., Ziehmutter</small></div>
     <div class="figure-card"><div class="figure-portrait p-vamperl"></div><strong>Vamperl</strong><small>saugt Gift aus Galle</small></div>
@@ -922,10 +993,10 @@ function updateChapterProgress(){
     ring.style.setProperty('--test',(successPct*3.6)+'deg');
     ring.style.setProperty('--exercise',(completionPct*3.6)+'deg');
     ring.setAttribute('aria-label',`${successPct} Prozent richtig, ${completionPct} Prozent bearbeitet`);
-    card.querySelector('.group-score').textContent=successPct+'%';
-    card.querySelector('.group-completion').textContent=`${completionPct} % (${attempted}/${tasks.length})`;
-    card.querySelector('.group-result').textContent=attempted?`${successPct} % (${correct}/${attempted})`:'noch nicht bearbeitet';
-    card.querySelector('.group-stars').textContent=Math.min(5,Math.floor(correct/2));
+    const score=card.querySelector('.group-score');if(score)score.textContent=successPct+'%';
+    const completion=card.querySelector('.group-completion');if(completion)completion.textContent=card.classList.contains('mini-progress')?`${completionPct} % bearbeitet`:`${completionPct} % (${attempted}/${tasks.length})`;
+    const result=card.querySelector('.group-result');if(result)result.textContent=attempted?`${successPct} % (${correct}/${attempted})`:'noch nicht bearbeitet';
+    const stars=card.querySelector('.group-stars');if(stars)stars.textContent=Math.min(5,Math.floor(correct/2));
   });
 }
 function upP(){
@@ -968,6 +1039,12 @@ function applyState(data){
 function importState(event){
   const file=event.target.files?.[0];if(!file)return;
   const reader=new FileReader();reader.onload=()=>{try{const data=JSON.parse(reader.result);applyState(data);localStorage.setItem(STORAGE_KEY,JSON.stringify(data));showToast('Lernstand erfolgreich importiert.');}catch(e){alert('Die Datei konnte nicht importiert werden: '+e.message);}event.target.value='';};reader.readAsText(file);
+}
+function resetState(){
+  const confirmed=window.confirm('Möchtest du wirklich alle Eingaben, Ergebnisse und gespeicherten Lernstände zurücksetzen?');
+  if(!confirmed)return;
+  localStorage.removeItem(STORAGE_KEY);
+  window.location.reload();
 }
 function restoreState(){try{const raw=localStorage.getItem(STORAGE_KEY);if(raw)applyState(JSON.parse(raw));}catch(e){console.warn('Lernstand konnte nicht geladen werden.',e);}}
 
