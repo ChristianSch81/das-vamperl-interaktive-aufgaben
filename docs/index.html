@@ -116,9 +116,11 @@
   .header h1 span { color:#fff; }
   .header p { font-size:.82rem; font-weight:700; margin:.18rem 0 0; }
   .header-actions { display:flex; align-items:center; gap:.65rem; flex:0 0 auto; }
-  .asw-logo { width:48px; height:48px; border-radius:7px; color:#4b5961; font-size:1rem; box-shadow:0 2px 9px #58071955; }
-  .asw-logo small { font-size:.28rem; line-height:1.05; }
+  .asw-logo { width:48px; height:48px; padding:2px; border-radius:7px; display:block; overflow:hidden; background:#fff; box-shadow:0 2px 9px #58071955; transition:transform .18s ease,box-shadow .18s ease; }
+  .asw-logo:hover,.asw-logo:focus-visible { transform:translateY(-1px); box-shadow:0 4px 12px #58071970; outline:2px solid #fff; outline-offset:2px; }
+  .asw-logo img { width:100%; height:100%; display:block; object-fit:contain; }
   .header-icon { width:48px; height:48px; display:grid; place-items:center; border-radius:7px; border:1px solid #ffffff80; background:#fff; color:#6b7074; font-size:1.45rem; box-shadow:0 2px 9px #58071955; }
+  .header-icon img { width:88%; height:88%; display:block; object-fit:contain; }
   .overview-btn { min-height:46px; padding:.65rem 1rem; border:1px solid #ffffff60; border-radius:8px; background:#ffffff16; color:#fff; font-weight:800; cursor:pointer; }
   .overview-btn:hover { background:#ffffff2b; }
   .tool-row { display:none; }
@@ -132,9 +134,9 @@
   .welcome-layout { display:grid; grid-template-columns:minmax(250px,1.25fr) minmax(220px,.75fr); gap:1rem; align-items:center; }
   .welcome-layout .story-image { margin:0; }
   .figure-grid { display:grid; grid-template-columns:repeat(6,minmax(105px,1fr)); gap:.65rem; }
-  .figure-card { min-width:0; padding:0 0 .65rem; overflow:hidden; background:#fff; }
-  .figure-portrait { height:126px; background-image:url('vamperl-figuren-v2.png'); background-repeat:no-repeat; background-size:470% auto; border-bottom:1px solid var(--line); margin-bottom:.55rem; }
-  .p-lizzi{background-position:0% 38%}.p-vamperl{background-position:27% 82%}.p-anna{background-position:46% 34%}.p-maringer{background-position:66% 32%}.p-flocki{background-position:70% 83%}.p-hannes{background-position:100% 42%}
+  .figure-card { min-width:0; padding:.75rem .4rem .7rem; overflow:hidden; background:#fff; }
+  .figure-portrait { width:112px; height:112px; margin:0 auto .65rem; border-radius:50%; background-image:url('vamperl-figuren-v2.png'); background-repeat:no-repeat; background-size:430% auto; border:4px solid #fff; outline:2px solid #d8e3eb; box-shadow:0 5px 14px #183b5626; }
+  .p-lizzi{background-position:13% 23%}.p-vamperl{background-position:30% 59%}.p-anna{background-position:45% 6%}.p-maringer{background-position:73% 3%}.p-flocki{background-position:66% 83%}.p-hannes{background-position:95% 18%}
   .progress-page { padding:clamp(1rem,3vw,2.25rem); }
   .progress-heading { display:flex; justify-content:space-between; align-items:flex-start; gap:1rem; flex-wrap:wrap; }
   .progress-kicker { display:inline-block; background:#dcf4e6; color:#126442; padding:.45rem .75rem; border-radius:999px; font-weight:800; }
@@ -145,7 +147,8 @@
   .file-actions .import-btn { background:#118842; }
   .progress-legend { display:flex; gap:1.4rem; flex-wrap:wrap; margin:1.25rem 0; color:#567087; }
   .legend-dot { width:12px; height:12px; display:inline-block; border-radius:50%; margin-right:.4rem; }
-  .progress-dashboard { display:grid; grid-template-columns:minmax(260px,380px) minmax(280px,1fr); gap:1rem; }
+  .progress-dashboard { display:grid; gap:1rem; }
+  .chapter-progress-grid { display:grid; grid-template-columns:repeat(4,minmax(205px,1fr)); gap:1rem; }
   .progress-card { border:1px solid #cfe0ed; border-radius:20px; padding:1.4rem; text-align:center; background:#fff; box-shadow:0 10px 28px #21415d10; }
   .progress-card h3 { margin:0 0 .85rem; color:#194d80; font-size:1.25rem; }
   .double-ring { --test:0deg; --exercise:0deg; width:230px; height:230px; margin:0 auto 1rem; border-radius:50%; display:grid; place-items:center; background:conic-gradient(var(--progress-green) var(--test),#e4edf3 0); position:relative; }
@@ -160,8 +163,17 @@
   .feedback-panel h3 { font-size:1.4rem; }
   .feedback-message { font-size:1.1rem; line-height:1.55; color:#354f64; margin:.35rem 0 1rem; }
   .feedback-meter { height:12px; border-radius:999px; background:#e4edf3; overflow:hidden; }.feedback-meter span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--progress-orange),var(--progress-green));transition:width .5s}
+  .chapter-progress-grid .progress-card { padding:1.15rem .75rem; }
+  .chapter-progress-grid .double-ring { width:180px; height:180px; }
+  .chapter-progress-grid .double-ring::before { inset:14px; }
+  .chapter-progress-grid .inner-ring { width:138px; height:138px; }
+  .chapter-progress-grid .inner-ring::before { inset:14px; }
+  .chapter-progress-grid .ring-center strong { font-size:1.65rem; }
+  .progress-jump { display:flex; justify-content:space-between; align-items:center; gap:1rem; flex-wrap:wrap; }
+  @media(max-width:1050px){.chapter-progress-grid{grid-template-columns:repeat(2,minmax(220px,1fr))}}
   @media(max-width:800px){.figure-grid{grid-template-columns:repeat(3,1fr)}.progress-dashboard{grid-template-columns:1fr}.header-icon{display:none}.welcome-layout{grid-template-columns:1fr}.welcome-layout .story-image{max-width:520px;margin:auto}}
-  @media(max-width:520px){.figure-grid{grid-template-columns:repeat(2,1fr)}.header-actions{gap:.35rem}.overview-btn{padding:.55rem}.asw-logo{width:42px;height:42px}.double-ring{width:205px;height:205px}.inner-ring{width:155px;height:155px}}
+  @media(max-width:590px){.chapter-progress-grid{grid-template-columns:1fr}}
+  @media(max-width:520px){.figure-grid{grid-template-columns:repeat(2,1fr)}.header-actions{gap:.35rem}.overview-btn{padding:.55rem}.asw-logo{width:42px;height:42px}.double-ring{width:205px;height:205px}.inner-ring{width:155px;height:155px}.figure-portrait{width:96px;height:96px}}
 </style>
 </head>
 <body>
@@ -170,8 +182,8 @@
   <div class="header-inner">
     <div class="header-copy"><h1><span>Deutsch Phase 3: „Das Vamperl“ von Renate Welsh</span></h1><p>Überblick</p></div>
     <div class="header-actions">
-      <div class="asw-logo" aria-label="ASW Logo">ASW<small>ALLEMANNENSCHULE<br>WUTÖSCHINGEN</small></div>
-      <div class="header-icon" aria-hidden="true">⌨</div>
+      <a class="asw-logo" href="https://asw-wutoeschingen.de/" target="_blank" rel="noopener noreferrer" aria-label="Zur Webseite der Alemannenschule Wutöschingen"><img src="asw-logo.png" alt="Logo der Alemannenschule Wutöschingen"></a>
+      <div class="header-icon" title="Deutsch: Literatur"><img src="diler-icon-deutsch-literatur.png" alt="Symbol für Deutsch und Literatur: Bücherregal"></div>
       <button class="overview-btn" type="button" onclick="goChapter('0')">Überblick</button>
     </div>
   </div>
@@ -233,9 +245,7 @@
     <li>Eine schwere Entscheidung</li><li>Unter dem Glassturz</li>
     <li>Letztes Kapitel</li>
   </ol></div>
-  <div class="card"><h3>🎯 Fortschritt</h3>
-  <div class="progress-bar"><div class="progress-fill" id="pGlobal" style="width:0%"></div></div>
-  <p style="text-align:right;font-size:0.8rem;">⭐ <strong id="pText">0%</strong></p></div>
+  <div class="card progress-jump"><div><h3>🎯 Dein Lernfortschritt</h3><p>Sieh dir deine Ergebnisse übersichtlich in Lernkreisen an.</p></div><button class="btn" type="button" onclick="goChapter('13')">Fortschrittskreise öffnen</button></div>
 </section>
 
 <!-- ===== KAPITEL 1 ===== -->
@@ -595,7 +605,7 @@
       <div>
         <span class="progress-kicker">Dein Lernfortschritt</span>
         <h2>So sicher bist du schon</h2>
-        <p>Der äußere grüne Ring zeigt dein Ergebnis im Abschlussquiz. Der innere orange Ring zeigt, wie viele deiner bearbeiteten Übungsaufgaben richtig waren.</p>
+        <p>Der äußere grüne Ring zeigt deine Erfolgsquote. Der innere orange Ring zeigt, wie viele Aufgaben du bereits bearbeitet hast.</p>
       </div>
       <div class="file-actions">
         <button class="btn" type="button" onclick="exportState()">⬇ Export</button>
@@ -603,19 +613,28 @@
       </div>
     </div>
     <div class="progress-legend">
-      <span><i class="legend-dot" style="background:var(--progress-green)"></i>Äußerer Ring: Abschlusstest</span>
-      <span><i class="legend-dot" style="background:var(--progress-orange)"></i>Innerer Ring: bearbeitete Übungen</span>
+      <span><i class="legend-dot" style="background:var(--progress-green)"></i>Äußerer Ring: richtig gelöste Aufgaben</span>
+      <span><i class="legend-dot" style="background:var(--progress-orange)"></i>Innerer Ring: Bearbeitungsstand</span>
     </div>
     <div class="progress-dashboard">
-      <article class="progress-card">
-        <h3>Das Vamperl</h3>
-        <div class="double-ring" id="doubleRing" role="img" aria-label="Lernfortschritt">
-          <div class="inner-ring"><div class="ring-center"><strong id="ringTestText">0%</strong><small>Test</small></div></div>
-        </div>
-        <p class="stat-line"><strong>Übungen:</strong> <span id="exerciseStats">0 % (0/0)</span></p>
-        <p class="stat-line"><strong>Test:</strong> <span id="testStats">noch nicht bearbeitet</span></p>
-        <p class="stars">⭐ <span id="starCount">0</span> Lernsterne</p>
-      </article>
+      <div class="chapter-progress-grid">
+        <article class="progress-card chapter-progress" data-chapters="1,2,3">
+          <h3>Kapitel 1–3</h3><div class="double-ring group-ring" role="img" aria-label="Fortschritt Kapitel 1 bis 3"><div class="inner-ring"><div class="ring-center"><strong class="group-score">0%</strong><small>Erfolg</small></div></div></div>
+          <p class="stat-line"><strong>Aufgaben:</strong> <span class="group-completion">0 % (0/0)</span></p><p class="stat-line"><strong>Richtig:</strong> <span class="group-result">noch nicht bearbeitet</span></p><p class="stars">⭐ <span class="group-stars">0</span> Lernsterne</p>
+        </article>
+        <article class="progress-card chapter-progress" data-chapters="4,5,6">
+          <h3>Kapitel 4–6</h3><div class="double-ring group-ring" role="img" aria-label="Fortschritt Kapitel 4 bis 6"><div class="inner-ring"><div class="ring-center"><strong class="group-score">0%</strong><small>Erfolg</small></div></div></div>
+          <p class="stat-line"><strong>Aufgaben:</strong> <span class="group-completion">0 % (0/0)</span></p><p class="stat-line"><strong>Richtig:</strong> <span class="group-result">noch nicht bearbeitet</span></p><p class="stars">⭐ <span class="group-stars">0</span> Lernsterne</p>
+        </article>
+        <article class="progress-card chapter-progress" data-chapters="7,8,9">
+          <h3>Kapitel 7–9</h3><div class="double-ring group-ring" role="img" aria-label="Fortschritt Kapitel 7 bis 9"><div class="inner-ring"><div class="ring-center"><strong class="group-score">0%</strong><small>Erfolg</small></div></div></div>
+          <p class="stat-line"><strong>Aufgaben:</strong> <span class="group-completion">0 % (0/0)</span></p><p class="stat-line"><strong>Richtig:</strong> <span class="group-result">noch nicht bearbeitet</span></p><p class="stars">⭐ <span class="group-stars">0</span> Lernsterne</p>
+        </article>
+        <article class="progress-card chapter-progress" data-chapters="10,11,12">
+          <h3>Kapitel 10–11 &amp; Quiz</h3><div class="double-ring group-ring" role="img" aria-label="Fortschritt Kapitel 10 bis 11 und Quiz"><div class="inner-ring"><div class="ring-center"><strong class="group-score">0%</strong><small>Erfolg</small></div></div></div>
+          <p class="stat-line"><strong>Aufgaben:</strong> <span class="group-completion">0 % (0/0)</span></p><p class="stat-line"><strong>Richtig:</strong> <span class="group-result">noch nicht bearbeitet</span></p><p class="stars">⭐ <span class="group-stars">0</span> Lernsterne</p>
+        </article>
+      </div>
       <article class="progress-card feedback-panel">
         <h3>Dein persönliches Feedback</h3>
         <p class="feedback-message" id="feedbackMessage">Beginne mit dem ersten Kapitel. Jede richtig gelöste Aufgabe bringt dich deinem Ziel näher.</p>
@@ -891,6 +910,24 @@ function completionData(){
     exerciseCorrect,exerciseAttempted,exercisePct:exerciseAttempted?Math.round(exerciseCorrect/exerciseAttempted*100):0
   };
 }
+function updateChapterProgress(){
+  document.querySelectorAll('.chapter-progress').forEach(card=>{
+    const chapterIds=(card.dataset.chapters||'').split(',').filter(Boolean);
+    const tasks=chapterIds.flatMap(id=>[...document.querySelectorAll(`#chapter-${id} .feedback`)]);
+    const attempted=tasks.filter(el=>el.classList.contains('richtig')||el.classList.contains('falsch')).length;
+    const correct=tasks.filter(el=>el.classList.contains('richtig')).length;
+    const completionPct=tasks.length?Math.round(attempted/tasks.length*100):0;
+    const successPct=attempted?Math.round(correct/attempted*100):0;
+    const ring=card.querySelector('.group-ring');
+    ring.style.setProperty('--test',(successPct*3.6)+'deg');
+    ring.style.setProperty('--exercise',(completionPct*3.6)+'deg');
+    ring.setAttribute('aria-label',`${successPct} Prozent richtig, ${completionPct} Prozent bearbeitet`);
+    card.querySelector('.group-score').textContent=successPct+'%';
+    card.querySelector('.group-completion').textContent=`${completionPct} % (${attempted}/${tasks.length})`;
+    card.querySelector('.group-result').textContent=attempted?`${successPct} % (${correct}/${attempted})`:'noch nicht bearbeitet';
+    card.querySelector('.group-stars').textContent=Math.min(5,Math.floor(correct/2));
+  });
+}
 function upP(){
   const p=completionData();
   [['pGlobal','pText'],['pToolbar','pToolbarText']].forEach(([bar,label])=>{
@@ -898,17 +935,7 @@ function upP(){
     if(b)b.style.width=p.pct+'%'; if(l)l.textContent=p.pct+' %';
     b?.parentElement?.setAttribute('aria-valuenow',p.pct);
   });
-  const ring=document.getElementById('doubleRing');
-  if(ring){
-    ring.style.setProperty('--test',(p.quizPct*3.6)+'deg');
-    ring.style.setProperty('--exercise',(p.exercisePct*3.6)+'deg');
-    ring.setAttribute('aria-label',`Abschlusstest ${p.quizPct} Prozent, Übungen ${p.exercisePct} Prozent`);
-  }
-  const ringText=document.getElementById('ringTestText');if(ringText)ringText.textContent=p.quizPct+'%';
-  const exerciseStats=document.getElementById('exerciseStats');if(exerciseStats)exerciseStats.textContent=`${p.exercisePct} % (${p.exerciseCorrect}/${p.exerciseAttempted})`;
-  const testStats=document.getElementById('testStats');if(testStats)testStats.textContent=p.quizAttempted?`${p.quizPct} % (${p.quizCorrect}/${p.quizTotal})`:'noch nicht bearbeitet';
-  const stars=Math.min(10,Math.floor((p.exerciseCorrect+p.quizCorrect)/3));
-  const starCount=document.getElementById('starCount');if(starCount)starCount.textContent=stars;
+  updateChapterProgress();
   const overallStats=document.getElementById('overallStats');if(overallStats)overallStats.textContent=p.pct+' %';
   const meter=document.getElementById('feedbackMeter');if(meter)meter.style.width=p.pct+'%';
   const message=document.getElementById('feedbackMessage');
