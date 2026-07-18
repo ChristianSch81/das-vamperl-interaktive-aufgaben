@@ -181,11 +181,13 @@
   .header p { font-size:.9rem; margin-top:.25rem; }
   .header-actions .asw-logo,.header-actions .header-icon { width:54px; height:54px; }
   .overview-btn { min-height:52px; font-size:.95rem; padding:.7rem 1.15rem; }
-  .progress-strip { position:sticky; top:86px; z-index:205; min-height:102px; padding:.45rem 1rem .45rem calc(238px + 1rem); display:flex; align-items:center; gap:1rem; background:#fff; border-bottom:1px solid #d9e2e9; box-shadow:0 3px 12px #18354d12; }
-  .progress-strip-title { flex:0 0 auto; color:#173651; font-size:.78rem; font-weight:900; line-height:1.2; }
-  .progress-strip-title small { display:block; margin-top:.15rem; color:#6a7f90; font-size:.62rem; font-weight:650; }
-  .progress-mini-grid { min-width:0; display:flex; align-items:center; gap:.7rem; overflow-x:auto; padding:.15rem .15rem .25rem; scrollbar-width:thin; }
-  .mini-progress { flex:0 0 auto; min-width:160px; padding:.32rem .65rem .32rem .38rem; display:flex; align-items:center; gap:.55rem; border:1px solid #cfdee8; border-radius:15px; background:#fbfdfe; }
+  .progress-strip { position:sticky; top:86px; z-index:205; min-height:102px; padding:0 1rem 0 0; display:grid; grid-template-columns:238px minmax(0,1fr); align-items:stretch; gap:0; background:#fff; border-bottom:1px solid #d9e2e9; box-shadow:0 3px 12px #18354d12; }
+  .progress-strip-title { position:relative; min-width:0; padding:.75rem 3.6rem .75rem 1rem; display:flex; flex-direction:column; justify-content:center; color:#8e1026; background:linear-gradient(135deg,#fff7f8 0%,#f7f9fb 100%); border-right:1px solid #d9e2e9; font-size:.78rem; font-weight:900; line-height:1.25; letter-spacing:.08em; text-transform:uppercase; }
+  .progress-strip-title::before { content:''; position:absolute; left:0; top:18px; bottom:18px; width:5px; border-radius:0 5px 5px 0; background:linear-gradient(180deg,var(--header-red),var(--progress-orange)); }
+  .progress-strip-title::after { content:''; position:absolute; right:1rem; top:50%; width:34px; height:34px; border-radius:50%; transform:translateY(-50%); background:conic-gradient(var(--progress-green) 0 34%,var(--progress-orange) 34% 67%,#dfe8ee 67% 100%); box-shadow:inset 0 0 0 8px #fff,0 2px 8px #17365124; }
+  .progress-strip-title small { display:block; margin-top:.28rem; color:#6a7f90; font-size:.59rem; font-weight:650; line-height:1.35; letter-spacing:0; text-transform:none; }
+  .progress-mini-grid { min-width:0; display:flex; align-items:center; gap:.7rem; overflow-x:auto; padding:.5rem .15rem .5rem .85rem; scrollbar-width:thin; }
+  .mini-progress { flex:0 0 auto; min-width:160px; padding:.32rem .65rem .32rem .38rem; display:flex; align-items:center; gap:.55rem; border:1px solid #cfdee8; border-radius:15px; background:linear-gradient(135deg,#fff 0%,#f7fbfd 100%); box-shadow:0 3px 10px #17365112; }
   .mini-progress .double-ring { width:68px; height:68px; flex:0 0 68px; margin:0; }
   .mini-progress .double-ring::before { inset:6px; }
   .mini-progress .inner-ring { width:50px; height:50px; }
@@ -215,9 +217,9 @@
     .header h1 { font-size:1.05rem; }
     .header-actions .asw-logo,.header-actions .header-icon { width:46px; height:46px; }
     .overview-btn { min-height:44px; padding:.55rem .75rem; }
-    .progress-strip { position:relative; top:auto; min-height:92px; padding:.4rem .65rem; gap:.65rem; overflow:hidden; }
+    .progress-strip { position:relative; top:auto; min-height:92px; padding:.4rem .65rem; display:flex; gap:.65rem; overflow:hidden; }
     .progress-strip-title { display:none; }
-    .progress-mini-grid { width:100%; }
+    .progress-mini-grid { width:100%; padding:.15rem .1rem .25rem; }
     .mini-progress { min-width:146px; }
     .mini-progress .double-ring { width:60px; height:60px; flex-basis:60px; }
     .mini-progress .inner-ring { width:44px; height:44px; }
@@ -231,6 +233,37 @@
     .main { margin-left:0; padding:1rem .75rem; }
     .footer { margin-left:0; }
   }
+
+  /* Einheitliche Farbrollen für Aufgaben und Prüfen-Aktionen */
+  .card:has(.badge-ue) { background:linear-gradient(135deg,#f7fbfe 0%,#eef6fb 100%); border-color:#b9d3e5; border-left:5px solid #2a6da3; }
+  .card:has(.badge-ue) > h3 { color:#174f7e; }
+  .card:has(.badge-ue) .uebung { background:#fff; border:1px solid #cfe0eb; border-left:4px solid #f5c542; }
+  .card:has(.badge-ue) .mc-option { background:#fff; border-color:#b8cfdf; }
+  .card:has(.badge-ue) .mc-option:hover { background:#e8f3fa; border-color:#2a6da3; }
+  .card button.btn[onclick^="chk"] { background:#a91329; color:#fff; border:1px solid #8f0e22; box-shadow:0 3px 8px #7d10242b; }
+  .card button.btn[onclick^="chk"]:hover { background:#850d20; border-color:#720b1b; color:#fff; }
+  .card button.btn[onclick^="chk"]:focus-visible { outline:3px solid #f3a5b1; outline-offset:2px; }
+  .card button.btn[onclick^="chk"]:active { transform:translateY(1px); box-shadow:none; }
+
+  /* Durchgängig gut lesbare Systemschrift */
+  html { font-size:16px; }
+  body,button,input,textarea,select { font-family:Verdana,"Segoe UI",Arial,sans-serif; }
+  body { line-height:1.55; }
+  .card p,.card li { font-size:.95rem; line-height:1.72; }
+  .input-field { font-family:inherit; font-size:.92rem; line-height:1.45; }
+  .nav-tabs button,.btn { font-family:inherit; letter-spacing:.005em; }
+  h1,h2,h3,h4 { line-height:1.28; }
+  .extra-task-card { position:relative; }
+  .task-meta { display:flex; align-items:center; gap:.45rem; flex-wrap:wrap; margin-bottom:.45rem; }
+  .task-number { color:#174f7e; font-size:.76rem; font-weight:900; letter-spacing:.03em; }
+  .level-badge { display:inline-block; padding:.18rem .52rem; border-radius:999px; font-size:.68rem; font-weight:850; }
+  .level-leicht { background:#dff5e8; color:#17623c; }
+  .level-mittel { background:#fff1c7; color:#7b5200; }
+  .level-schwer { background:#f8dfe4; color:#86162b; }
+  .extra-options { display:grid; gap:.38rem; margin:.65rem 0; }
+  .extra-options .mc-option { width:100%; text-align:left; font-family:inherit; }
+  .extra-task-card textarea.input-field { max-width:100%; min-height:105px; resize:vertical; }
+  .writing-note { margin:.35rem 0 .65rem; color:#61788a; font-size:.78rem; }
 </style>
 </head>
 <body>
@@ -251,7 +284,7 @@
     <div class="mini-progress chapter-progress" data-chapters="1,2,3"><div class="double-ring group-ring"><div class="inner-ring"><div class="ring-center"><strong class="group-score">0%</strong></div></div></div><div class="mini-progress-label">Kapitel 1–3<small class="group-completion">0 % bearbeitet</small></div></div>
     <div class="mini-progress chapter-progress" data-chapters="4,5,6"><div class="double-ring group-ring"><div class="inner-ring"><div class="ring-center"><strong class="group-score">0%</strong></div></div></div><div class="mini-progress-label">Kapitel 4–6<small class="group-completion">0 % bearbeitet</small></div></div>
     <div class="mini-progress chapter-progress" data-chapters="7,8,9"><div class="double-ring group-ring"><div class="inner-ring"><div class="ring-center"><strong class="group-score">0%</strong></div></div></div><div class="mini-progress-label">Kapitel 7–9<small class="group-completion">0 % bearbeitet</small></div></div>
-    <div class="mini-progress chapter-progress" data-chapters="10,11,12"><div class="double-ring group-ring"><div class="inner-ring"><div class="ring-center"><strong class="group-score">0%</strong></div></div></div><div class="mini-progress-label">Kap. 10–11 &amp; Quiz<small class="group-completion">0 % bearbeitet</small></div></div>
+    <div class="mini-progress chapter-progress" data-chapters="10,11,12"><div class="double-ring group-ring"><div class="inner-ring"><div class="ring-center"><strong class="group-score">0%</strong></div></div></div><div class="mini-progress-label">Kapitel 10–11 &amp; Quiz<small class="group-completion">0 % bearbeitet</small></div></div>
   </div>
 </div>
 <section class="tool-row" aria-label="Lernstand und Dateiaktionen">
@@ -267,17 +300,17 @@
 
 <nav class="nav-tabs" id="navTabs" aria-label="Lernpfad durch die Kapitel">
   <button class="active" data-chapter="0">📖 Start</button>
-  <button data-chapter="1">1 · Spinnennetz</button>
-  <button data-chapter="2">2 · Kaffee</button>
-  <button data-chapter="3">3 · Fliegen</button>
-  <button data-chapter="4">4 · Unterwegs</button>
-  <button data-chapter="5">5 · Gefahr</button>
-  <button data-chapter="6">6 · Kamille</button>
-  <button data-chapter="7">7 · Rad</button>
-  <button data-chapter="8">8 · Zuviel</button>
-  <button data-chapter="9">9 · Entscheidung</button>
-  <button data-chapter="10">10 · Glassturz</button>
-  <button data-chapter="11">11 · Ende</button>
+  <button data-chapter="1">Kapitel 1 · Spinnennetz</button>
+  <button data-chapter="2">Kapitel 2 · Kaffee</button>
+  <button data-chapter="3">Kapitel 3 · Fliegen</button>
+  <button data-chapter="4">Kapitel 4 · Unterwegs</button>
+  <button data-chapter="5">Kapitel 5 · Gefahr</button>
+  <button data-chapter="6">Kapitel 6 · Kamille</button>
+  <button data-chapter="7">Kapitel 7 · Rad</button>
+  <button data-chapter="8">Kapitel 8 · Zuviel</button>
+  <button data-chapter="9">Kapitel 9 · Entscheidung</button>
+  <button data-chapter="10">Kapitel 10 · Glassturz</button>
+  <button data-chapter="11">Kapitel 11 · Ende</button>
   <button data-chapter="12">🏆 Quiz</button>
   <button data-chapter="13">📊 Fortschritt</button>
   <div class="nav-file-tools" aria-label="Lernstand verwalten">
@@ -321,7 +354,7 @@
 
 <!-- ===== KAPITEL 1 ===== -->
 <section class="chapter" id="chapter-1">
-  <div class="card"><h2>📗 Kap. 1: Ein Spinnennetz voll Überraschung</h2>
+  <div class="card"><h2>📗 Kapitel 1: Ein Spinnennetz voll Überraschung</h2>
   <p><span class="badge badge-kap">S. 8–19</span> Frau Lizzi kommt von der Kur zurück. Beim Putzen der Wohnung singt sie ein Vampir-Lied. An der Decke entdeckt sie ein Spinnennetz – und darin einen winzigen, schlafenden Vampir! Nachbarin Frau Anna mit Foxterrier Flocki will den Vampir ins Klo werfen. Doch Frau Lizzi beschützt ihn und zieht ihn mit einer Puppenflasche und warmer Milch mit Zucker auf.</p>
   <figure class="story-image"><img src="vamperl-milch-frau-lizzi.jpg" alt="Das kleine Vamperl trinkt in Frau Lizzis Küche aus einer Milchflasche"><figcaption>Frau Lizzi versorgt das Vamperl mit warmer Milch.</figcaption></figure>
   </div>
@@ -329,10 +362,10 @@
   <!-- AB1: Steckbrief zu Frau Lizzi -->
   <div class="card"><h3><span class="badge badge-ue">📝 AB1</span> Steckbrief: Frau Lizzi</h3>
   <div class="uebung"><p><strong>Beschreibe Frau Lizzi. Fülle aus:</strong></p>
-  <p>Alter: <input class="input-field input-sm" id="st_alter" placeholder="... Jahre"></p>
-  <p>Wohnsituation: <input class="input-field" id="st_wohn" placeholder="z.B. allein in einer Wohnung"></p>
-  <p>Hobbys: <input class="input-field" id="st_hobby" placeholder="z.B. Singen beim Putzen"></p>
-  <p>Charakter (3 Adjektive): <input class="input-field" id="st_char" placeholder="z.B. freundlich, mutig, fürsorglich"></p>
+  <p>Alter: <input class="input-field input-sm" id="st_alter" placeholder="z. B. 45 Jahre"></p>
+  <p>Wohnsituation: <input class="input-field" id="st_wohn" placeholder="z. B. mit zwei Geschwistern"></p>
+  <p>Hobbys: <input class="input-field" id="st_hobby" placeholder="z. B. Rad fahren und zeichnen"></p>
+  <p>Charakter (3 Adjektive): <input class="input-field" id="st_char" placeholder="z. B. ordentlich, nachdenklich, humorvoll"></p>
   <button class="btn" onclick="chkSteckbrief()">✔️ Prüfen</button>
   <div class="feedback" id="st_fb"></div></div></div>
 
@@ -366,16 +399,16 @@
 
 <!-- ===== KAPITEL 2 ===== -->
 <section class="chapter" id="chapter-2">
-  <div class="card"><h2>📗 Kap. 2: Keine Ruhe zum Kaffee</h2>
+  <div class="card"><h2>📗 Kapitel 2: Keine Ruhe zum Kaffee</h2>
   <p><span class="badge badge-kap">S. 20–27</span> Frau Lizzi will Kaffee trinken – da klopfen Frau Anna und Frau Maringer. Sie verlangen Auskunft über den Vampir. Frau Lizzi lügt: "Nein" (in den Müll geworfen hat sie ihn ja nicht!). Die beiden Nachbarinnen streiten sich heftig über ihre Hunde Flocki und Bello. Endlich gehen sie. Das Vamperl fiept und bekommt die Flasche.</p></div>
 
   <!-- AB3 dtv: Zitate interpretieren -->
   <div class="card"><h3><span class="badge badge-ue">💬 AB4</span> Was ist gemeint? Zitate verstehen</h3>
   <div class="uebung"><p><strong>"Wenn es um das Tier geht, können Sie ganz beruhigt sein." (Frau Lizzi, S.20)</strong></p>
-  <p>Was meint Frau Lizzi eigentlich? <input class="input-field input-lg" id="zitat1" placeholder="Schreibe deine Erklärung..."></p>
+  <p>Was meint Frau Lizzi eigentlich? <input class="input-field input-lg" id="zitat1" placeholder="z. B. Damit möchte die Figur sagen, dass …"></p>
   <button class="btn btn-sm" onclick="chkZitat1()">✔️ Prüfen</button><div class="feedback" id="zit1_fb"></div>
   <p style="margin-top:0.5rem;"><strong>"Die Leute haben keinen Sinn für eine Vampirschönheit." (Frau Lizzi, S.25)</strong></p>
-  <p>Was bedeutet das? <input class="input-field input-lg" id="zitat2" placeholder="Schreibe deine Erklärung..."></p>
+  <p>Was bedeutet das? <input class="input-field input-lg" id="zitat2" placeholder="z. B. Der Satz bedeutet für mich, dass …"></p>
   <button class="btn btn-sm" onclick="chkZitat2()">✔️ Prüfen</button><div class="feedback" id="zit2_fb"></div></div></div>
 
   <!-- Zuordnung -->
@@ -394,15 +427,15 @@
 
 <!-- ===== KAPITEL 3 ===== -->
 <section class="chapter" id="chapter-3">
-  <div class="card"><h2>📗 Kap. 3: Vom Fliegenlernen und anderen Künsten</h2>
+  <div class="card"><h2>📗 Kapitel 3: Vom Fliegenlernen und anderen Künsten</h2>
   <p><span class="badge badge-kap">S. 28–38</span> Das Vamperl wächst rasant: Schmuckschachtel → Knopfschachtel → Nähkorb. Es lernt fliegen (1. Versuch: Bauchlandung). Im Treppenhaus hört Frau Lizzi Frau Müller auf Hannes schimpfen. Das Vamperl fliegt los und <strong>sticht ihr in die Galle</strong> – plötzlich ist sie freundlich! Frau Lizzi nennt es "Vamperl".</p></div>
 
   <!-- AB4: Entwicklung malen/beschreiben -->
   <div class="card"><h3><span class="badge badge-ue">📐 AB6</span> Die Entwicklung des Vamperl</h3>
   <p><strong>Wo schläft das Vamperl in welcher Woche?</strong></p>
-  <p>1. Woche: <input class="input-field input-sm" id="entw1" placeholder="..."> (Tipp: Schmuckschachtel)</p>
-  <p>2. Woche: <input class="input-field input-sm" id="entw2" placeholder="..."> (Tipp: Knopfschachtel)</p>
-  <p>3. Woche: <input class="input-field input-sm" id="entw3" placeholder="..."> (Tipp: Nähkorb)</p>
+  <p>1. Woche: <input class="input-field input-sm" id="entw1" placeholder="z. B. Schuhkarton"> (Tipp: Schmuckschachtel)</p>
+  <p>2. Woche: <input class="input-field input-sm" id="entw2" placeholder="z. B. Holzkiste"> (Tipp: Knopfschachtel)</p>
+  <p>3. Woche: <input class="input-field input-sm" id="entw3" placeholder="z. B. Wäschekorb"> (Tipp: Nähkorb)</p>
   <button class="btn" onclick="chkEntw()">✔️ Prüfen</button><div class="feedback" id="entw_fb"></div></div>
 
   <!-- RF -->
@@ -418,17 +451,17 @@
   <!-- AB5: Geschichte weiterschreiben -->
   <div class="card"><h3><span class="badge badge-ue">✏️ AB8</span> Die Geschichte weiterschreiben</h3>
   <div class="uebung"><p><strong>Was passiert, nachdem Frau Müller auf einmal freundlich ist?</strong></p>
-  <textarea class="input-field" rows="2" style="max-width:100%;height:60px;" placeholder="Frau Müller lächelt Hannes an und sagt..."></textarea></div></div>
+  <textarea class="input-field" rows="2" style="max-width:100%;height:60px;" placeholder="z. B. Kurz darauf passiert etwas Unerwartetes …"></textarea></div></div>
 
   <!-- Vamperl-Lied -->
   <div class="card"><h3><span class="badge badge-ue">🎵 AB9</span> Das Vamperl-Lied</h3>
-  <p>"Mein Vamperl trinkt nur <input class="input-field input-sm" id="lied1" placeholder="..."> und mag kein <input class="input-field input-sm" id="lied2" placeholder="..."> und macht die bösen Leute alle wieder <input class="input-field input-sm" id="lied3" placeholder="...">."</p>
+  <p>"Mein Vamperl trinkt nur <input class="input-field input-sm" id="lied1" placeholder="z. B. Wasser"> und mag kein <input class="input-field input-sm" id="lied2" placeholder="z. B. Gemüse"> und macht die bösen Leute alle wieder <input class="input-field input-sm" id="lied3" placeholder="z. B. fröhlich">."</p>
   <button class="btn" onclick="chkLied()">✔️ Prüfen</button><div class="feedback" id="lied_fb"></div></div>
 </section>
 
 <!-- ===== KAPITEL 4 ===== -->
 <section class="chapter" id="chapter-4">
-  <div class="card"><h2>📗 Kap. 4: Vamperl unterwegs</h2>
+  <div class="card"><h2>📗 Kapitel 4: Vamperl unterwegs</h2>
   <p><span class="badge badge-kap">S. 39–44</span> Im Park wird Dieter von Kindern gehänselt: "Ri-ra-rum, der Dieter, der ist dumm!" Das Vamperl sticht sie in die Galle – alle werden nett. Karin lädt Dieter zu Käsenudeln ein. Frau Lizzi schimpft mit Vamperl. Es weint eine Träne.</p></div>
 
   <!-- AB6: Nacherzählen -->
@@ -460,28 +493,28 @@
 
   <!-- Reim -->
   <div class="card"><h3><span class="badge badge-ue">🎶 AB11</span> Der Kinderreim</h3>
-  <p>"Ri-ra-<input class="input-field input-sm" id="reim1" placeholder="...">, der Dieter, der ist <input class="input-field input-sm" id="reim2" placeholder="...">."</p>
+  <p>"Ri-ra-<input class="input-field input-sm" id="reim1" placeholder="z. B. Reimwort">, der Dieter, der ist <input class="input-field input-sm" id="reim2" placeholder="z. B. Adjektiv">."</p>
   <button class="btn" onclick="chkReim()">✔️ Prüfen</button><div class="feedback" id="reim_fb"></div></div>
 </section>
 
 <!-- ===== KAPITEL 5 ===== -->
 <section class="chapter" id="chapter-5">
-  <div class="card"><h2>📗 Kap. 5: Gefahr!</h2>
+  <div class="card"><h2>📗 Kapitel 5: Gefahr!</h2>
   <p><span class="badge badge-kap">S. 45–55</span> Vamperl reißt bei Hupkonzert aus. Es sticht Autofahrer in die Galle – alle werden höflich ("Nach Ihnen!"). Zeitungsverkäufer Herr Kühne sieht es und alarmiert die Polizei. Polizist Wipfel kommt. Frau Lizzi versteckt Vamperl.</p></div>
 
   <!-- AB7+8: Gedicht -->
   <div class="card"><h3><span class="badge badge-ue">📝 AB12</span> Das Vamperl-Gedicht untersuchen</h3>
   <div class="uebung"><p><em>"Morgens schon in aller Frühe wird mein Vamperl munter. Flitzt wie ein geölter Blitz auf die Straße runter. Wo die Leute schimpfen, streiten wegen lauter Kleinigkeiten, wo sie raufen, fluchen, schrein, dort mischt sich mein Vamperl ein."</em></p>
-  <p><strong>1️⃣ Wie viele Verse hat das Gedicht? </strong><input class="input-field input-sm" id="gedVers" placeholder="Zahl"></p>
-  <p><strong>2️⃣ Was reimt sich? </strong>Frühe – <input class="input-field input-sm" id="gedReim" placeholder="...">, schrein – <input class="input-field input-sm" id="gedReim2" placeholder="..."></p>
-  <p><strong>3️⃣ Welches Wort reimt sich auf "Blitz"? </strong><input class="input-field input-sm" id="gedBlitz" placeholder="..."></p>
+  <p><strong>1️⃣ Wie viele Verse hat das Gedicht? </strong><input class="input-field input-sm" id="gedVers" placeholder="z. B. 6"></p>
+  <p><strong>2️⃣ Was reimt sich? </strong>Frühe – <input class="input-field input-sm" id="gedReim" placeholder="z. B. Reimwort">, schrein – <input class="input-field input-sm" id="gedReim2" placeholder="z. B. Reimwort"></p>
+  <p><strong>3️⃣ Welches Wort reimt sich auf "Blitz"? </strong><input class="input-field input-sm" id="gedBlitz" placeholder="z. B. Reimwort"></p>
   <button class="btn" onclick="chkGedicht()">✔️ Prüfen</button><div class="feedback" id="ged_fb"></div></div></div>
 
   <!-- Gedicht schreiben (AB8) -->
   <div class="card"><h3><span class="badge badge-ue">✏️ AB13</span> Ein eigenes Gedicht schreiben</h3>
   <div class="uebung"><p><strong>Schreibe ein kleines Gedicht über ein Fantasietier.</strong></p>
   <p style="font-size:0.8rem;opacity:0.7;">Tipp: "Mein (Tier) trinkt nur... und mag kein... und macht..."</p>
-  <textarea class="input-field" rows="3" style="max-width:100%;height:70px;" placeholder="Mein Drachen trinkt nur..."></textarea></div></div>
+  <textarea class="input-field" rows="3" style="max-width:100%;height:70px;" placeholder="z. B. Mein Wolkentier tanzt leise durch den Wind …"></textarea></div></div>
 
   <!-- RF -->
   <div class="card"><h3><span class="badge badge-ue">❓ AB14</span> Richtig oder Falsch?</h3>
@@ -496,7 +529,7 @@
 
 <!-- ===== KAPITEL 6 ===== -->
 <section class="chapter" id="chapter-6">
-  <div class="card"><h2>📗 Kap. 6: Kamillentee und Langeweile</h2>
+  <div class="card"><h2>📗 Kapitel 6: Kamillentee und Langeweile</h2>
   <p><span class="badge badge-kap">S. 56–61</span> Frau Lizzi hält Vamperl zuhause. Es ist gelangweilt. Sie kocht Kamillentee. Vamperl mag ihn nicht. Es spielt mit Wollknäueln, sitzt am Fenster und will raus. Frau Lizzi singt ihm Lieder vor und näht ihm ein Kissen.</p></div>
 
   <!-- AB10: Wahr oder falsch -->
@@ -512,12 +545,12 @@
   <!-- AB11: Tagebucheintrag -->
   <div class="card"><h3><span class="badge badge-ue">✏️ AB16</span> Tagebucheintrag schreiben</h3>
   <div class="uebung"><p><strong>Schreibe einen Tagebucheintrag aus Vamperls Sicht:</strong></p>
-  <textarea class="input-field" rows="3" style="max-width:100%;height:80px;" placeholder="Liebes Tagebuch! Heute war ich den ganzen Tag in der Wohnung. Frau Lizzi hat Kamillentee gekocht, aber..."></textarea></div></div>
+  <textarea class="input-field" rows="3" style="max-width:100%;height:80px;" placeholder="z. B. Liebes Tagebuch, heute ist etwas Überraschendes passiert: …"></textarea></div></div>
 </section>
 
 <!-- ===== KAPITEL 7 ===== -->
 <section class="chapter" id="chapter-7">
-  <div class="card"><h2>📗 Kap. 7: Radfahren verboten</h2>
+  <div class="card"><h2>📗 Kapitel 7: Radfahren verboten</h2>
   <p><span class="badge badge-kap">S. 62–66</span> Hannes & Freunde spielen Fußball im Hof. Der Hausmeister verbietet es. Da kommt Vamperl und sticht ihn in die Galle – plötzlich erlaubt er alles: Radfahren, Ballspielen! Die Kinder staunen.</p></div>
 
   <div class="card"><h3><span class="badge badge-ue">📝 AB17</span> Multiple Choice</h3>
@@ -530,7 +563,7 @@
 
 <!-- ===== KAPITEL 8 ===== -->
 <section class="chapter" id="chapter-8">
-  <div class="card"><h2>📗 Kap. 8: Was zu viel ist</h2>
+  <div class="card"><h2>📗 Kapitel 8: Was zu viel ist</h2>
   <p><span class="badge badge-kap">S. 67–77</span> Vamperl fliegt jede Nacht aus, um allen zu helfen. Es saugt und saugt – wird immer dicker. Eines Morgens ist es krank: ganz grau und schlapp. Es hat zu viel Gift aufgesogen!</p></div>
 
   <!-- AB12: Sortieren -->
@@ -557,34 +590,34 @@
 
 <!-- ===== KAPITEL 9 ===== -->
 <section class="chapter" id="chapter-9">
-  <div class="card"><h2>📗 Kap. 9: Eine schwere Entscheidung</h2>
+  <div class="card"><h2>📗 Kapitel 9: Eine schwere Entscheidung</h2>
   <p><span class="badge badge-kap">S. 78–91</span> Frau Lizzi pflegt das kranke Vamperl mit Honig und guten Worten. Im Bus sticht es noch einen Fahrgast, dann wird es ohnmächtig. Der Arzt ist ratlos. Soll sie es ins Krankenhaus bringen?</p></div>
 
   <!-- AB14: Lückentext -->
   <div class="card"><h3><span class="badge badge-ue">📝 AB20</span> Lückentext</h3>
-  <div class="uebung"><p>Frau Lizzi pflegt das Vamperl mit <input class="input-field input-sm" id="lk9_1" placeholder="...">. Im Bus sticht es einen <input class="input-field input-sm" id="lk9_2" placeholder="..."> Fahrgast und wird dann <input class="input-field input-sm" id="lk9_3" placeholder="...">. Sie muss eine schwere <input class="input-field input-sm" id="lk9_4" placeholder="..."> treffen.</p>
+  <div class="uebung"><p>Frau Lizzi pflegt das Vamperl mit <input class="input-field input-sm" id="lk9_1" placeholder="z. B. Tee">. Im Bus sticht es einen <input class="input-field input-sm" id="lk9_2" placeholder="z. B. müden"> Fahrgast und wird dann <input class="input-field input-sm" id="lk9_3" placeholder="z. B. still">. Sie muss eine schwere <input class="input-field input-sm" id="lk9_4" placeholder="z. B. Reise"> treffen.</p>
   <button class="btn" onclick="chkLuecke9()">✔️ Prüfen</button><div class="feedback" id="lk9_fb"></div></div></div>
 
   <!-- AB15: Argumentieren -->
   <div class="card"><h3><span class="badge badge-ue">🗣️ AB21</span> Argumentieren: Pro & Contra</h3>
   <div class="uebung"><p><strong>Soll Frau Lizzi das Vamperl ins Krankenhaus bringen?</strong></p>
-  <p>✅ <strong>JA,</strong> weil... <input class="input-field input-lg" placeholder="... (z.B. der Professor kann helfen)"></p>
-  <p>❌ <strong>NEIN,</strong> weil... <input class="input-field input-lg" placeholder="... (z.B. es hat Angst)"></p></div></div>
+  <p>✅ <strong>JA,</strong> weil... <input class="input-field input-lg" placeholder="z. B. dadurch ein Vorteil entstehen könnte"></p>
+  <p>❌ <strong>NEIN,</strong> weil... <input class="input-field input-lg" placeholder="z. B. ein wichtiger Grund dagegen spricht"></p></div></div>
 </section>
 
 <!-- ===== KAPITEL 10 ===== -->
 <section class="chapter" id="chapter-10">
-  <div class="card"><h2>📗 Kap. 10: Unter dem Glassturz</h2>
+  <div class="card"><h2>📗 Kapitel 10: Unter dem Glassturz</h2>
   <p><span class="badge badge-kap">S. 92–103</span> Im Krankenhaus setzt der Professor Vamperl unter eine Glasglocke. Es wird immer schwächer – keine bösen Wörter zum Saugen, nur sterile Luft. Frau Lizzi wacht Tag und Nacht, füttert es mit guten Gedanken.</p></div>
 
   <!-- AB17: Sätze fortsetzen -->
   <div class="card"><h3><span class="badge badge-ue">📝 AB22</span> Sätze fortsetzen</h3>
   <div class="uebung"><p>① Der Professor setzt Vamperl unter Glas, weil...</p>
-  <input class="input-field input-lg" placeholder="...">
+  <input class="input-field input-lg" placeholder="z. B. er einen besonderen Plan hat">
   <p>② Vamperl wird nicht gesund, weil...</p>
-  <input class="input-field input-lg" placeholder="...">
+  <input class="input-field input-lg" placeholder="z. B. ihm etwas Wichtiges fehlt">
   <p>③ Frau Lizzi hilft ihm, indem sie...</p>
-  <input class="input-field input-lg" placeholder="..."></div></div>
+  <input class="input-field input-lg" placeholder="z. B. eine hilfreiche Idee ausprobiert"></div></div>
 
   <!-- Redewendungen Gift und Galle (Kohl) -->
   <div class="card"><h3><span class="badge badge-ue">💡 AB23</span> Redewendungen: Gift und Galle</h3>
@@ -593,32 +626,32 @@
   <label class="mc-option" onclick="mc(this,1,'mc10a')">B) Sehr wütend sein und schimpfen</label>
   <label class="mc-option" onclick="mc(this,2,'mc10a')">C) Schlafen gehen</label></div>
   <button class="btn" onclick="chkMC('mc10a',1)">✔️ Prüfen</button><div class="feedback" id="mc10a_fb"></div>
-  <p style="margin-top:0.5rem;"><strong>Was macht das Vamperl mit der Galle?</strong> Es saugt das <input class="input-field input-sm" id="galle" placeholder="..."> heraus.</p>
+  <p style="margin-top:0.5rem;"><strong>Was macht das Vamperl mit der Galle?</strong> Es saugt das <input class="input-field input-sm" id="galle" placeholder="z. B. Ärger"> heraus.</p>
   <button class="btn btn-sm" onclick="chkGalle()">✔️</button><div class="feedback" id="galle_fb"></div></div></div>
 </section>
 
 <!-- ===== KAPITEL 11 ===== -->
 <section class="chapter" id="chapter-11">
-  <div class="card"><h2>📗 Kap. 11: Letztes Kapitel</h2>
+  <div class="card"><h2>📗 Kapitel 11: Letztes Kapitel</h2>
   <p><span class="badge badge-kap">S. 104–111</span> Frau Lizzi holt Vamperl aus dem Krankenhaus. Mit lieben Worten pflegt sie es gesund. Der Professor gibt auf. Der Hausmeister ist freundlich. Frau Lizzis Schlusssatz: "Ein Vamperl ist nicht genug. Solche wie dich brauchen wir viele!"</p></div>
 
   <!-- AB18: Berichtigen -->
   <div class="card"><h3><span class="badge badge-ue">📝 AB24</span> Fehler finden und berichtigen</h3>
   <div class="uebung"><p style="background:#2d1b4e;padding:0.4rem;border-radius:0.4rem;font-size:0.85rem;">"Frau Lizzi holt das Vamperl aus dem Supermarkt. Sie pflegt es mit bösen Wörtern. Der Professor jubelt."</p>
   <p><strong>Finde die 3 Fehler und schreibe den Satz richtig:</strong></p>
-  <textarea class="input-field" rows="2" style="max-width:100%;height:55px;" placeholder="Richtiger Satz:"></textarea>
+  <textarea class="input-field" rows="2" style="max-width:100%;height:55px;" placeholder="z. B. Beginne mit: Frau Lizzi …"></textarea>
   <button class="btn btn-sm" onclick="chkBerichtigen()">✔️ Prüfen</button><div class="feedback" id="ber_fb"></div></div></div>
 
   <!-- AB19: Buch weiterschreiben -->
   <div class="card"><h3><span class="badge badge-ue">✏️ AB25</span> Das Buch weiterschreiben</h3>
   <div class="uebung"><p><strong>Was könnte am nächsten Tag passieren?</strong></p>
-  <textarea class="input-field" rows="3" style="max-width:100%;height:70px;" placeholder="Am nächsten Tag..."></textarea></div></div>
+  <textarea class="input-field" rows="3" style="max-width:100%;height:70px;" placeholder="z. B. Plötzlich klopft es an der Tür …"></textarea></div></div>
 
   <!-- Schlusssatz interpretieren -->
   <div class="card"><h3><span class="badge badge-ue">💬 AB26</span> Was meint Frau Lizzi?</h3>
   <p><em>"Ein Vamperl ist nicht genug. Solche wie dich brauchen wir viele."</em></p>
   <p><strong>Was will sie damit sagen?</strong></p>
-  <textarea class="input-field" rows="2" style="max-width:100%;height:60px;" placeholder="Ich glaube, sie meint..."></textarea></div>
+  <textarea class="input-field" rows="2" style="max-width:100%;height:60px;" placeholder="z. B. Damit möchte die Figur ausdrücken, dass …"></textarea></div>
 </section>
 
 <!-- ===== ABSCHLUSSQUIZ (AB20) ===== -->
@@ -963,20 +996,31 @@ function saveFields(){
   const chapter=document.querySelector('.nav-tabs button.active')?.dataset.chapter||'0';
   localStorage.setItem(STORAGE_KEY,JSON.stringify({version:2,savedAt:new Date().toISOString(),fields,done,chapter}));
 }
+function taskCardsForChapters(chapterIds){
+  return chapterIds.flatMap(id=>[...document.querySelectorAll(`#chapter-${id} .card`)]
+    .filter(card=>card.querySelector('.badge-ue')));
+}
+function taskCardState(card){
+  const feedback=[...card.querySelectorAll('.feedback')];
+  const fields=[...card.querySelectorAll('textarea,input.input-field')];
+  const feedbackAttempted=feedback.some(el=>el.classList.contains('richtig')||el.classList.contains('falsch'));
+  const fieldAttempted=fields.some(el=>el.value.trim().length>=3);
+  return {
+    attempted:feedbackAttempted||fieldAttempted,
+    correct:feedback.length>0&&feedback.every(el=>el.classList.contains('richtig'))
+  };
+}
 function completionData(){
-  const checks=[...document.querySelectorAll('.feedback')];
-  const writing=[...document.querySelectorAll('textarea,input.input-field')];
-  const doneChecks=checks.filter(el=>el.classList.contains('richtig')).length;
-  const doneWriting=writing.filter(el=>el.value.trim().length>=3).length;
-  const total=checks.length+writing.length;
-  const quiz=checks.filter(el=>/^fq\d+_fb$/.test(el.id));
-  const exercises=checks.filter(el=>!/^fq\d+_fb$/.test(el.id));
+  const chapterCards=taskCardsForChapters(Object.keys(existingTaskCounts));
+  const exerciseStates=chapterCards.map(taskCardState);
+  const quiz=[...document.querySelectorAll('.feedback')].filter(el=>/^fq\d+_fb$/.test(el.id));
   const quizCorrect=quiz.filter(el=>el.classList.contains('richtig')).length;
   const quizAttempted=quiz.filter(el=>el.classList.contains('richtig')||el.classList.contains('falsch')).length;
-  const exerciseCorrect=exercises.filter(el=>el.classList.contains('richtig')).length;
-  const exerciseAttempted=exercises.filter(el=>el.classList.contains('richtig')||el.classList.contains('falsch')).length;
+  const exerciseCorrect=exerciseStates.filter(state=>state.correct).length;
+  const exerciseAttempted=exerciseStates.filter(state=>state.attempted).length;
+  const done=exerciseAttempted+quizAttempted,total=chapterCards.length+quiz.length;
   return {
-    done:doneChecks+doneWriting,total,pct:total?Math.round((doneChecks+doneWriting)/total*100):0,
+    done,total,pct:total?Math.round(done/total*100):0,
     quizCorrect,quizTotal:quiz.length,quizAttempted,quizPct:quiz.length?Math.round(quizCorrect/quiz.length*100):0,
     exerciseCorrect,exerciseAttempted,exercisePct:exerciseAttempted?Math.round(exerciseCorrect/exerciseAttempted*100):0
   };
@@ -984,9 +1028,10 @@ function completionData(){
 function updateChapterProgress(){
   document.querySelectorAll('.chapter-progress').forEach(card=>{
     const chapterIds=(card.dataset.chapters||'').split(',').filter(Boolean);
-    const tasks=chapterIds.flatMap(id=>[...document.querySelectorAll(`#chapter-${id} .feedback`)]);
-    const attempted=tasks.filter(el=>el.classList.contains('richtig')||el.classList.contains('falsch')).length;
-    const correct=tasks.filter(el=>el.classList.contains('richtig')).length;
+    const tasks=taskCardsForChapters(chapterIds);
+    const states=tasks.map(taskCardState);
+    const attempted=states.filter(state=>state.attempted).length;
+    const correct=states.filter(state=>state.correct).length;
     const completionPct=tasks.length?Math.round(attempted/tasks.length*100):0;
     const successPct=attempted?Math.round(correct/attempted*100):0;
     const ring=card.querySelector('.group-ring');
@@ -1048,7 +1093,198 @@ function resetState(){
 }
 function restoreState(){try{const raw=localStorage.getItem(STORAGE_KEY);if(raw)applyState(JSON.parse(raw));}catch(e){console.warn('Lernstand konnte nicht geladen werden.',e);}}
 
+// ===== Zusätzliche Kapitelaufgaben: insgesamt 12 je Kapitel =====
+const M=(level,title,prompt,options,correct)=>({type:'mc',level,title,prompt,options,correct});
+const S=(level,title,prompt,placeholder,answers)=>({type:'short',level,title,prompt,placeholder,answers});
+const O=(level,title,prompt,placeholder,min=80,note='Schreibe in vollständigen Sätzen.')=>({type:'open',level,title,prompt,placeholder,min,note});
+const existingTaskCounts={1:3,2:2,3:4,4:2,5:3,6:2,7:1,8:2,9:2,10:2,11:3};
+const extraTasks={
+  1:[
+    M('Leicht','Der Fundort','Wo entdeckt Frau Lizzi das winzige Vamperl?',['Im Küchenschrank','In einem Spinnennetz','Unter dem Bett'],1),
+    S('Leicht','Die erste Nahrung','Was gibt Frau Lizzi dem Vamperl zu trinken?','z. B. ein Getränk',['milch']),
+    M('Leicht','Frau Annas Reaktion','Wie reagiert Frau Anna zunächst auf das Vamperl?',['Sie möchte es sofort behalten.','Sie erschrickt und lehnt es ab.','Sie erkennt es als Haustier.'],1),
+    S('Mittel','Frau Lizzis Entscheidung','Warum behält Frau Lizzi das Vamperl? Nenne einen passenden Grund.','z. B. weil sie Verantwortung übernehmen möchte',['beschütz','helfen','rett','fürsorg','kümmer','lieb']),
+    M('Mittel','Genau gelesen','Womit füttert Frau Lizzi das Vamperl?',['Mit einer Puppenflasche','Mit einem Suppenlöffel','Mit einer Teetasse'],0),
+    O('Mittel','Zwei unterschiedliche Reaktionen','Vergleiche Frau Lizzis und Frau Annas Verhalten gegenüber dem Vamperl.','z. B. Während die eine Figur …, reagiert die andere …',90),
+    O('Mittel','Kapitel zusammenfassen','Fasse Kapitel 1 in drei bis fünf Sätzen zusammen.','z. B. Zuerst … Danach … Am Ende …',110,'Nenne Fund, Streit und Frau Lizzis Entscheidung.'),
+    O('Schwer','Frau Lizzis Tagebuch','Schreibe einen Tagebucheintrag aus Frau Lizzis Sicht am Abend des Fundes.','z. B. Liebes Tagebuch, heute ist etwas völlig Unerwartetes passiert …',150,'Schreibe aus der Ich-Perspektive und beschreibe Gefühle.'),
+    O('Schwer','Ein Brief an eine Freundin','Frau Lizzi berichtet einer Freundin in einem Brief von ihrem Fund.','z. B. Liebe …, du wirst kaum glauben, was ich heute entdeckt habe …',170,'Achte auf Anrede, verständliche Reihenfolge und Grußformel.')
+  ],
+  2:[
+    M('Leicht','Besuch zur Kaffeezeit','Wer besucht Frau Lizzi?',['Frau Anna und Frau Maringer','Hannes und der Hausmeister','Der Arzt und der Professor'],0),
+    M('Leicht','Der Streit','Worüber geraten die beiden Besucherinnen in Streit?',['Über ihre Hunde','Über Frau Lizzis Kaffee','Über das Treppenhaus'],0),
+    S('Leicht','Frau Lizzis Antwort','Warum ist Frau Lizzis Antwort über das Tier geschickt formuliert?','z. B. weil ihre Worte mehrdeutig sind',['nicht weggeworfen','nicht im müll','verschweigt','doppeldeutig','mehrdeutig','schützt']),
+    M('Mittel','Gestörte Ruhe','Wie wirkt die Besuchsszene auf Frau Lizzi?',['Ruhig und erholsam','Anstrengend und störend','Feierlich und fröhlich'],1),
+    O('Mittel','Der Nachbarschaftsstreit','Erkläre, warum der Streit über Flocki und Bello vom eigentlichen Thema ablenkt.','z. B. Eigentlich möchten die Figuren …, doch dann …',90),
+    S('Mittel','Frau Lizzis Ziel','Was möchte Frau Lizzi durch ihre vorsichtige Antwort erreichen?','z. B. eine Person oder ein Geheimnis schützen',['vamperl schützen','tier schützen','geheim','ruhe','loswerden','bewahren']),
+    O('Mittel','Ein neuer Dialog','Schreibe ein kurzes Gespräch zwischen Frau Lizzi und dem Vamperl, nachdem die Nachbarinnen gegangen sind.','z. B. „Das war knapp“, sagte …',100,'Verwende mindestens vier Sprecherwechsel.'),
+    O('Schwer','Kapitel zusammenfassen','Fasse Kapitel 2 sachlich in vier Sätzen zusammen.','z. B. Zu Beginn … Anschließend … Schließlich …',110),
+    O('Schwer','Frau Annas Tagebuch','Schreibe einen Tagebucheintrag aus Frau Annas Sicht über den Besuch.','z. B. Liebes Tagebuch, bei Frau Lizzi war heute etwas merkwürdig …',150,'Zeige, was Frau Anna vermutet und fühlt.'),
+    O('Schwer','Versöhnungsbrief','Schreibe einen Brief, in dem sich eine Nachbarin für den Streit entschuldigt.','z. B. Liebe Frau …, wegen unseres Streits möchte ich …',170,'Nenne Anlass, Entschuldigung und einen Vorschlag für die Zukunft.')
+  ],
+  3:[
+    M('Leicht','Der erste Flugversuch','Wie endet Vamperls erster Flugversuch?',['Mit einer Bauchlandung','Mit einem Flug bis zum Dach','Mit einem Sprung ins Fenster'],0),
+    S('Leicht','Der Name','Wie nennt Frau Lizzi den kleinen Vampir?','z. B. ein Kosename',['vamperl']),
+    M('Mittel','Frau Müller vorher und nachher','Was verändert sich nach Vamperls Stich?',['Frau Müller wird freundlicher.','Frau Müller wird noch wütender.','Frau Müller schläft ein.'],0),
+    M('Mittel','Wachstum ordnen','Welche Reihenfolge zeigt Vamperls Wachstum?',['Nähkorb – Schmuckschachtel – Knopfschachtel','Schmuckschachtel – Knopfschachtel – Nähkorb','Knopfschachtel – Nähkorb – Schmuckschachtel'],1),
+    O('Mittel','Vamperls Entwicklung','Beschreibe, wie sich Vamperl körperlich und in seinen Fähigkeiten entwickelt.','z. B. Am Anfang … Später kann es bereits …',100),
+    O('Schwer','Hannes erzählt','Schreibe aus Hannes Sicht, wie er die plötzliche Veränderung seiner Mutter erlebt.','z. B. Erst konnte ich kaum glauben, dass …',140,'Verwende die Ich-Perspektive und beschreibe mindestens zwei Gefühle.'),
+    O('Schwer','Kapitel zusammenfassen','Fasse die wichtigsten Entwicklungsschritte und den Vorfall im Treppenhaus zusammen.','z. B. Zunächst wächst … Danach …',130),
+    O('Schwer','Vamperls Brief','Das Vamperl schreibt Frau Lizzi einen erfundenen Dankesbrief.','z. B. Liebe Frau Lizzi, danke, dass du …',160,'Nenne Pflege, Fliegenlernen und das Gefühl von Geborgenheit.')
+  ],
+  4:[
+    M('Leicht','Dieter im Park','Was geschieht mit Dieter?',['Er wird von Kindern geärgert.','Er verliert seinen Hund.','Er gewinnt ein Wettrennen.'],0),
+    M('Leicht','Karins Einladung','Wozu lädt Karin Dieter ein?',['Zu Käsenudeln','Zu einem Fußballspiel','Zu Kakao und Kuchen'],0),
+    S('Leicht','Wirkung des Stichs','Wie verhalten sich die Kinder nach Vamperls Eingreifen?','z. B. ein verändertes Verhalten',['nett','freundlich','lieb','entschuldig','einladen']),
+    M('Mittel','Frau Lizzis Ärger','Warum schimpft Frau Lizzi mit Vamperl?',['Weil es ohne Erlaubnis eingegriffen hat.','Weil es nicht fliegen kann.','Weil es die Milch verschüttet hat.'],0),
+    M('Mittel','Handlungsfolge','Welche Reihenfolge stimmt?',['Einladung – Hänseln – Stich – Schimpfen','Hänseln – Stich – Einladung – Schimpfen','Stich – Schimpfen – Hänseln – Einladung'],1),
+    O('Mittel','Dieters Gefühle','Beschreibe Dieters Gefühle vor und nach Vamperls Eingreifen.','z. B. Zuerst fühlt Dieter sich … Später …',90),
+    O('Mittel','Gespräch beim Essen','Schreibe einen Dialog zwischen Karin und Dieter bei den Käsenudeln.','z. B. „Vorhin im Park …“, beginnt Karin.',110,'Lass beide Figuren über den Vorfall sprechen.'),
+    O('Schwer','Kapitel zusammenfassen','Fasse den Vorfall im Park in vier bis sechs Sätzen zusammen.','z. B. Im Park … Daraufhin … Schließlich …',130),
+    O('Schwer','Dieters Tagebuch','Schreibe Dieters Tagebucheintrag über diesen Tag.','z. B. Liebes Tagebuch, heute war zuerst alles schrecklich, doch dann …',160),
+    O('Schwer','Entschuldigungsbrief','Die Kinder schreiben Dieter einen Entschuldigungsbrief.','z. B. Lieber Dieter, unser Verhalten im Park war …',170,'Erkläre den Fehler und formuliere eine ehrliche Wiedergutmachung.')
+  ],
+  5:[
+    M('Leicht','Das Hupkonzert','Was veranlasst Vamperl auszureißen?',['Ein Hupkonzert','Ein Gewitter','Ein Streit im Haus'],0),
+    M('Leicht','Der Alarm','Wen verständigt Herr Kühne?',['Die Feuerwehr','Die Polizei','Frau Anna'],1),
+    S('Mittel','Vamperl verstecken','Warum versteckt Frau Lizzi das Vamperl?','z. B. um jemanden vor einer Gefahr zu bewahren',['polizei','schützen','entdeck','gefahr','fangen','wegnehmen']),
+    M('Mittel','Reihenfolge','Welche Reihenfolge ist richtig?',['Hupen – Vamperl fliegt los – Herr Kühne beobachtet es – Polizei kommt','Polizei kommt – Hupen – Herr Kühne geht – Vamperl schläft','Herr Kühne ruft – Frau Lizzi hupt – Vamperl versteckt die Polizei'],0),
+    O('Mittel','Die Autofahrer','Vergleiche das Verhalten der Autofahrer vor und nach Vamperls Eingreifen.','z. B. Vorher reagieren sie … Danach …',100),
+    O('Mittel','Gefahr erklären','Erkläre, warum Herr Kühnes Beobachtung für Vamperl gefährlich ist.','z. B. Nun wissen andere Menschen, dass …',100),
+    O('Schwer','Kapitel zusammenfassen','Fasse Kapitel 5 mit Ursache, Eingreifen und Gefahr zusammen.','z. B. Ausgelöst durch … Danach … Am Ende …',130),
+    O('Schwer','Polizist Wipfels Tagebuch','Schreibe aus Sicht des Polizisten über den ungewöhnlichen Einsatz.','z. B. Heute erhielt ich einen merkwürdigen Auftrag …',160),
+    O('Schwer','Zeitungsbericht','Verfasse einen sachlichen Zeitungsbericht über den Vorfall.','z. B. Ungewöhnlicher Zwischenfall in der Innenstadt – Am …',190,'Nutze Überschrift sowie Angaben zu Wer, Was, Wann und Wo.')
+  ],
+  6:[
+    M('Leicht','Zu Hause bleiben','Was darf Vamperl vorerst nicht?',['Allein hinausfliegen','Milch trinken','Mit Wollknäueln spielen'],0),
+    M('Leicht','Das Getränk','Welches Getränk mag Vamperl nicht?',['Kamillentee','Apfelsaft','Kakao'],0),
+    M('Leicht','Zeitvertreib','Womit spielt Vamperl?',['Mit Wollknäueln','Mit Bauklötzen','Mit einem Ball'],0),
+    S('Mittel','Am Fenster','Warum sitzt Vamperl häufig am Fenster?','z. B. weil es sich nach etwas sehnt',['raus','hinaus','fliegen','langweil','frei','unterwegs']),
+    M('Mittel','Frau Lizzis Geschenk','Was näht Frau Lizzi?',['Ein Kissen','Einen Mantel','Eine Mütze'],0),
+    O('Mittel','Langeweile beschreiben','Beschreibe, woran man Vamperls Langeweile erkennt.','z. B. Sein Verhalten zeigt …',100),
+    O('Mittel','Ein guter Tagesplan','Entwirf einen abwechslungsreichen Tagesplan für Vamperl in der Wohnung.','z. B. Am Morgen könnte … Mittags …',110,'Nenne mindestens vier kindgerechte Beschäftigungen.'),
+    O('Schwer','Kapitel zusammenfassen','Fasse zusammen, warum Vamperl zu Hause bleiben muss und wie Frau Lizzi hilft.','z. B. Weil … versucht Frau Lizzi …',130),
+    O('Schwer','Brief an einen Freund','Vamperl schreibt einem Fantasiefreund über seine Langeweile.','z. B. Lieber …, seit einigen Tagen darf ich nicht …',160),
+    O('Schwer','Ratschlag an Frau Lizzi','Schreibe Frau Lizzi einen freundlichen Ratschlag, wie sie Vamperl schützen und beschäftigen kann.','z. B. Liebe Frau Lizzi, ich verstehe deine Sorge. Vielleicht könntest du …',180)
+  ],
+  7:[
+    M('Leicht','Das Verbot','Was verbietet der Hausmeister den Kindern?',['Fußball- und Radfahren im Hof','Singen im Treppenhaus','Lesen auf der Bank'],0),
+    M('Leicht','Die strenge Person','Wer spricht das Verbot aus?',['Der Hausmeister','Der Professor','Herr Kühne'],0),
+    S('Leicht','Verändertes Verhalten','Wie verhält sich der Hausmeister nach Vamperls Stich?','z. B. nenne die Veränderung',['freundlich','nett','erlaubt','nachgiebig','lieb']),
+    M('Mittel','Reaktion der Kinder','Wie reagieren die Kinder auf die Veränderung?',['Sie staunen.','Sie gehen sofort nach Hause.','Sie rufen die Polizei.'],0),
+    M('Mittel','Handlungsfolge','Welche Reihenfolge stimmt?',['Verbot – Stich – Erlaubnis – Staunen','Stich – Staunen – Verbot – Streit','Erlaubnis – Verbot – Stich – Schlaf'],0),
+    O('Mittel','Vorher und nachher','Beschreibe den Hausmeister vor und nach dem Stich.','z. B. Zuerst besteht er darauf, dass … Danach …',100),
+    O('Mittel','Faire Regeln','Beurteile das Verbot. Welche Regeln für den Hof wären fair?','z. B. Eine faire Regel wäre …, weil …',120),
+    O('Mittel','Ein klärendes Gespräch','Schreibe einen Dialog zwischen den Kindern und dem Hausmeister.','z. B. „Wir möchten gern …“, erklären die Kinder.',120,'Beide Seiten sollen ihre Gründe nennen.'),
+    O('Schwer','Kapitel zusammenfassen','Fasse Ausgangssituation, Wendepunkt und Ergebnis zusammen.','z. B. Zunächst … Als Vamperl … Schließlich …',130),
+    O('Schwer','Tagebuch des Mädchens','Schreibe den Tagebucheintrag eines Kindes, das im Hof Rad fahren wollte.','z. B. Liebes Tagebuch, heute hat der Hausmeister zuerst …',160),
+    O('Schwer','Brief an den Hausmeister','Die Kinder schlagen dem Hausmeister in einem Brief gemeinsame Hofregeln vor.','z. B. Sehr geehrter Herr …, wir möchten gern eine Lösung finden …',190,'Schreibe höflich, begründe und nenne mindestens drei Regeln.')
+  ],
+  8:[
+    M('Leicht','Nächtliche Ausflüge','Wann fliegt Vamperl aus?',['Jede Nacht','Jeden Mittag','Nur sonntags'],0),
+    M('Leicht','Sein Ziel','Warum fliegt Vamperl aus?',['Es möchte Menschen helfen.','Es sucht Süßigkeiten.','Es will Frau Lizzi erschrecken.'],0),
+    M('Leicht','Zu viel Gift','Warum wird Vamperl immer dicker?',['Es saugt sehr viel Gift auf.','Es trinkt zu viel Wasser.','Es schläft zu lange.'],0),
+    S('Mittel','Krankheitszeichen','Nenne ein Zeichen dafür, dass Vamperl krank ist.','z. B. eine sichtbare Veränderung',['grau','schlapp','schwach','krank','müde']),
+    M('Mittel','Die Botschaft','Welche Aussage passt zum Kapitel?',['Auch Helfen braucht Grenzen und Erholung.','Wer hilft, wird niemals müde.','Alle Probleme lassen sich allein lösen.'],0),
+    M('Mittel','Handlungsfolge','Welche Reihenfolge ist richtig?',['Ausflüge – viel Gift – dicker werden – krank sein','Krank sein – Ausflüge – gesund werden – schlafen','Milch trinken – Polizei – Gift – Geburtstag'],0),
+    O('Mittel','Der Kapiteltitel','Erkläre, warum das Kapitel „Was zu viel ist“ heißt.','z. B. Der Titel passt, weil …',100),
+    O('Schwer','Kapitel zusammenfassen','Fasse Vamperls gute Absicht und die Folgen seines Handelns zusammen.','z. B. Vamperl möchte … Dabei … Schließlich …',130),
+    O('Schwer','Frau Lizzis Tagebuch','Schreibe Frau Lizzis Tagebucheintrag, als sie Vamperl krank findet.','z. B. Liebes Tagebuch, heute Morgen erschrak ich sehr …',170),
+    O('Schwer','Ein Rat an Vamperl','Schreibe Vamperl einen Brief darüber, wie es helfen kann, ohne sich zu überfordern.','z. B. Liebes Vamperl, deine Hilfsbereitschaft ist großartig. Trotzdem …',190)
+  ],
+  9:[
+    M('Leicht','Pflege','Womit pflegt Frau Lizzi das kranke Vamperl?',['Mit Honig und guten Worten','Mit Eis und kaltem Wasser','Mit einer starken Lampe'],0),
+    M('Leicht','Im Bus','Was geschieht nach Vamperls letztem Stich im Bus?',['Es wird ohnmächtig.','Es beginnt zu singen.','Es fliegt nach Hause.'],0),
+    M('Leicht','Der Arzt','Wie reagiert der Arzt?',['Er ist ratlos.','Er kennt sofort die Heilung.','Er glaubt Frau Lizzi nicht.'],0),
+    S('Mittel','Die Entscheidung','Worüber muss Frau Lizzi entscheiden?','z. B. ob ein bestimmter Ort helfen könnte',['krankenhaus','klinik','professor','bringen','behandlung']),
+    M('Mittel','Reihenfolge','Welche Reihenfolge stimmt?',['Pflege – Busfahrt – Stich – Ohnmacht – Arzt','Arzt – Ohnmacht – Honig – Busfahrt – Stich','Busfahrt – Krankenhaus – Fund – Kaffee – Arzt'],0),
+    O('Mittel','Pro und Contra','Nenne je zwei Gründe für und gegen einen Krankenhausaufenthalt.','z. B. Dafür spricht … Dagegen spricht …',130),
+    O('Mittel','Frau Lizzis Gedanken','Schreibe einen inneren Monolog vor ihrer Entscheidung.','z. B. Was soll ich nur tun? Einerseits …',140,'Zeige Sorge, Hoffnung und Zweifel.'),
+    O('Schwer','Kapitel zusammenfassen','Fasse Pflege, Busfahrt und Entscheidungssituation zusammen.','z. B. Obwohl Frau Lizzi … kommt es im Bus …',140),
+    O('Schwer','Vamperls Traumtagebuch','Erfinde einen kurzen Traum, den Vamperl während seiner Ohnmacht haben könnte.','z. B. Alles um mich herum war plötzlich …',160),
+    O('Schwer','Brief an den Professor','Frau Lizzi erklärt einem Professor in einem Brief Vamperls Besonderheit und Krankheit.','z. B. Sehr geehrter Herr Professor, ich brauche dringend Ihren Rat …',200)
+  ],
+  10:[
+    M('Leicht','Im Krankenhaus','Wohin setzt der Professor Vamperl?',['Unter eine Glasglocke','In einen Vogelkäfig','In ein warmes Bett'],0),
+    M('Leicht','Vamperls Zustand','Was geschieht unter dem Glas?',['Es wird schwächer.','Es wird sofort gesund.','Es wächst sehr schnell.'],0),
+    S('Leicht','Frau Lizzis Fürsorge','Wer wacht Tag und Nacht bei Vamperl?','z. B. eine wichtige Bezugsperson',['frau lizzi','lizzi']),
+    M('Mittel','Gute Gedanken','Womit versucht Frau Lizzi Vamperl zu stärken?',['Mit guten Gedanken und Worten','Mit lauter Musik','Mit kaltem Kamillentee'],0),
+    M('Mittel','Handlungsfolge','Welche Reihenfolge passt?',['Krankenhaus – Glasglocke – Schwäche – Frau Lizzis Wache','Glasglocke – Park – Bus – Kaffee','Wache – Fund im Netz – Professor – Hupkonzert'],0),
+    O('Mittel','Warum keine Heilung?','Erkläre, warum die sterile Umgebung Vamperl nicht hilft.','z. B. Ihm fehlt dort etwas, das …',110),
+    O('Mittel','Unter Glas','Beschreibe, was die Glasglocke für Vamperl bedeuten könnte.','z. B. Das Glas wirkt wie …, weil …',120),
+    O('Schwer','Vamperls innerer Monolog','Schreibe Vamperls Gedanken unter der Glasglocke.','z. B. Ich kann Frau Lizzi sehen, aber …',160),
+    O('Schwer','Kapitel zusammenfassen','Fasse Versuch, Wirkung und Frau Lizzis Verhalten zusammen.','z. B. Der Professor glaubt … Doch Vamperl …',140),
+    O('Schwer','Frau Lizzis Beschwerdebrief','Schreibe einen höflichen, aber deutlichen Brief an den Professor über die Behandlung.','z. B. Sehr geehrter Herr Professor, ich mache mir große Sorgen, weil …',200)
+  ],
+  11:[
+    M('Leicht','Die Rettung','Wer holt Vamperl aus dem Krankenhaus?',['Frau Lizzi','Frau Anna','Hannes'],0),
+    M('Leicht','Was hilft?','Was trägt zu Vamperls Genesung bei?',['Liebe Worte und Fürsorge','Eine neue Glasglocke','Ein Polizeieinsatz'],0),
+    S('Mittel','Der Schlusssatz','Was brauchen die Menschen laut Frau Lizzi in größerer Zahl?','z. B. hilfreiche Wesen',['vamperl','solche wie dich','vampire']),
+    M('Mittel','Handlungsfolge','Welche Reihenfolge stimmt?',['Abholen – liebe Worte – Genesung – Schlusssatz','Schlusssatz – Krankenhaus – Fund – Abholen','Professor jubelt – Glasglocke – Park – Brief'],0),
+    O('Mittel','Frau Lizzis Entwicklung','Beschreibe, was Frau Lizzis Verhalten im letzten Kapitel über ihren Charakter zeigt.','z. B. Ihre Entscheidung zeigt, dass sie …',110),
+    O('Mittel','Die Aussage des Endes','Erkläre den Schlusssatz mit eigenen Worten.','z. B. Frau Lizzi wünscht sich eine Welt, in der …',120),
+    O('Schwer','Kapitel zusammenfassen','Fasse das letzte Kapitel in fünf bis sieben Sätzen zusammen.','z. B. Zunächst … Dann … Schließlich …',150),
+    O('Schwer','Frau Lizzis Tagebuch','Schreibe ihren Tagebucheintrag nach Vamperls Genesung.','z. B. Liebes Tagebuch, endlich kann ich wieder hoffen …',170),
+    O('Schwer','Vamperls Dankesbrief','Schreibe einen Dankesbrief von Vamperl an Frau Lizzi.','z. B. Liebe Frau Lizzi, ohne deinen Mut und deine Fürsorge …',200,'Beziehe dich auf mindestens drei Erlebnisse aus dem Buch.')
+  ]
+};
+function escHtml(value){return String(value).replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));}
+function renderExtraTasks(){
+  Object.entries(extraTasks).forEach(([chapter,items])=>{
+    const section=document.getElementById('chapter-'+chapter);if(!section)return;
+    [...section.querySelectorAll('.card')]
+      .filter(card=>card.querySelector('.badge-ue'))
+      .slice(0,existingTaskCounts[chapter])
+      .forEach((card,index)=>{
+        const badge=card.querySelector('.badge-ue');
+        if(badge&&!badge.dataset.chapterNumbered){
+          badge.textContent=`Aufgabe ${index+1} von 12 · ${badge.textContent.trim()}`;
+          badge.dataset.chapterNumbered='true';
+        }
+      });
+    const start=existingTaskCounts[chapter]+1;
+    items.forEach((task,index)=>{
+      const number=start+index,id=`extra-c${chapter}-t${number}`;
+      const card=document.createElement('div');card.className='card extra-task-card';card.dataset.extraTask=id;
+      let control='';
+      if(task.type==='mc'){
+        control=`<div class="extra-options" id="${id}-options">${task.options.map((option,i)=>`<button class="mc-option" type="button" data-value="${i}" onclick="selectExtraOption(this)">${escHtml(String.fromCharCode(65+i)+') '+option)}</button>`).join('')}</div>`;
+      }else if(task.type==='short'){
+        control=`<input class="input-field input-lg" id="${id}-input" placeholder="${escHtml(task.placeholder)}">`;
+      }else{
+        control=`<p class="writing-note">${escHtml(task.note)}</p><textarea class="input-field" id="${id}-input" placeholder="${escHtml(task.placeholder)}"></textarea>`;
+      }
+      card.innerHTML=`<div class="task-meta"><span class="badge badge-ue">Aufgabe ${number} von 12</span><span class="level-badge level-${task.level.toLowerCase()}">${escHtml(task.level)}</span></div><h3>${escHtml(task.title)}</h3><p><strong>${escHtml(task.prompt)}</strong></p>${control}<button class="btn" type="button" onclick="chkExtraTask(${chapter},${index},'${id}')">✔️ Prüfen</button><div class="feedback" id="${id}-fb"></div>`;
+      section.appendChild(card);
+    });
+  });
+}
+function selectExtraOption(button){
+  button.parentElement.querySelectorAll('.mc-option').forEach(item=>item.classList.remove('selected','correct','incorrect'));
+  button.classList.add('selected');
+}
+function chkExtraTask(chapter,index,id){
+  const task=extraTasks[chapter][index];
+  if(task.type==='mc'){
+    const selected=document.querySelector(`#${id}-options .mc-option.selected`);
+    if(!selected){fb(id+'-fb',false,'Bitte wähle zuerst eine Antwort aus.');return;}
+    const ok=Number(selected.dataset.value)===task.correct;
+    selected.classList.add(ok?'correct':'incorrect');
+    fb(id+'-fb',ok,ok?'Richtig gelesen!':'Lies die Kapitelzusammenfassung noch einmal und versuche es erneut.');
+  }else if(task.type==='short'){
+    const value=document.getElementById(id+'-input').value.toLowerCase().trim();
+    const ok=task.answers.some(answer=>value.includes(answer));
+    fb(id+'-fb',ok,ok?'Das passt zum Kapitel.':'Suche im Kapitel nach einer genaueren Textstelle.');
+  }else{
+    const value=document.getElementById(id+'-input').value.trim();
+    const ok=value.length>=task.min;
+    fb(id+'-fb',ok,ok?'Ausführlich bearbeitet. Prüfe nun Inhalt, Reihenfolge und Rechtschreibung.':`Ergänze noch einige Gedanken. Dein Text sollte ungefähr ${task.min} Zeichen oder mehr enthalten.`);
+  }
+  upP();
+}
+
 // Automatisch lokal speichern
+renderExtraTasks();
 document.querySelectorAll('input:not([type=file]),textarea').forEach(el=>el.addEventListener('input',upP));
 document.addEventListener('click',e=>{if(e.target.closest('button,.mc-option'))setTimeout(upP,0);});
 // Init
